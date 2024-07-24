@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Promotions from './pages/Promotions';
 import Navbar from './components/navbar';
@@ -22,8 +22,7 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route index element={<Home />} />
-          <Route path='/user/:userId' element={<Home />} />
+          <Route path='user/:userId' element={<Home />} />
           <Route path='/user/:userId/create/:promotion' element={<CreatePromotion />} />
           <Route path='/user/:userId/for-me/:promotion' element={<Promotions />} />
           <Route path='/user/:userId/waiting' element={<Waiting />} />

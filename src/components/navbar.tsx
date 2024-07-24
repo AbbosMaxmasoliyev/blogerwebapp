@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { apiGetUserWithUserId } from '../services/userService';
-import { Link, Outlet, useLocation, useNavigate,  useParams, } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate, useParams, } from 'react-router-dom';
 import { User } from '../types';
 import { BiArrowBack } from 'react-icons/bi';
 
@@ -23,16 +23,17 @@ const Navbar: React.FC = () => {
     }
 
     const checkBotInURL = () => {
-        const path = location.pathname;
-        console.log(path.includes('bot'));
+        const path = window.location.pathname;
+
 
         setHasBot(path.includes('bot'));
     };
 
     const checkInHome = () => {
-        const path = location.pathname;
-        if (params.userId) {
+        const path = window.location.pathname;
 
+
+        if (params.userId) {
             setInHome(path.split(params.userId).filter(value => value !== "").length == 2)
         }
 
@@ -43,8 +44,8 @@ const Navbar: React.FC = () => {
     useEffect(() => {
         checkBotInURL()
         checkInHome()
-        console.log(inHome);
 
+        console.log(hasBot);
         if (params.userId) {
             apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser })
         }
@@ -55,7 +56,6 @@ const Navbar: React.FC = () => {
         checkBotInURL()
 
         checkInHome()
-        console.log(inHome);
     }, [location.pathname])
     const linksForMe = [
         {

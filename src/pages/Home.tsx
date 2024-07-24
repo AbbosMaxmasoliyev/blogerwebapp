@@ -33,7 +33,7 @@ const Home = () => {
     ]
     return (
         <div className='bg-blue-950 bg-opacity-45 min-h-screen'>
-
+            <h1>salom</h1>
             <div className="flex flex-col flex-wrap justify-center py-3 gap-3 items-center">
                 {
                     navigateInformation.map(value => <CardLink {...value} />)
