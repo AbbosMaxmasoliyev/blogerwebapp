@@ -23,14 +23,14 @@ const Navbar: React.FC = () => {
     }
 
     const checkBotInURL = () => {
-        const path = window.location.pathname;
+        const path = location.pathname;
 
 
         setHasBot(path.includes('bot'));
     };
 
     const checkInHome = () => {
-        const path = window.location.pathname;
+        const path = location.pathname;
 
 
         if (params.userId) {
