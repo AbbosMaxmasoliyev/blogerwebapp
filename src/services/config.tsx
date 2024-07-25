@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 const BaseService = axios.create({
-    baseURL: "http://bloggerbot.uz",
+    baseURL: "https://bloggerbot.uz",
     timeout: 6000
 })
 
