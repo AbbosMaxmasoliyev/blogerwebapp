@@ -10,7 +10,7 @@ import BaseService from '../services/config';
 const Loading = () => {
     return (
         <div id="loading" className="w-full  flex-col justify-center p-6 ">
-            <div role="status" className="flex flex-col items-center justify-center">
+            <div role="status" className="flex flex-col items-center justify-center min-h-screen ">
                 <svg aria-hidden="true"
                     className="w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                     viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@ const Loading = () => {
 
 const Success = () => {
     return (
-        <div id="success" className="w-full flex justify-center p-6 ">
+        <div id="success" className="w-full flex justify-center p-6  flex-col items-center  min-h-screen ">
             <div
                 className="flex flex-col items-center justify-center flex-shrink-0  rounded-lg text-green-500 w-6/12 h-32">
                 <svg className="w-32 h-32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ const Success = () => {
 
 const Error = () => {
     return (
-        <div id="error" className="w-full flex justify-center p-6 ">
+        <div id="error" className="w-full flex justify-center p-6 min-h-screen">
             <div
                 className="flex flex-col items-center justify-center flex-shrink-0 text-red-500 rounded-lg  w-6/12 h-32">
                 <svg className="w-32 h-32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
