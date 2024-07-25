@@ -5,7 +5,7 @@ interface ArgumentId {
     id?: String,
     beforeFunction?: Function,
     promotion?: string
-    category: string
+    category?: string
 }
 
 export const apiGetUserWithUserId = async ({ id, beforeFunction }: ArgumentId): Promise<User | { success: boolean }> => {
