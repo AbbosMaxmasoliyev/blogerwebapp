@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router-dom"
 import { PromotionObject } from "../types"
-import PromotionCategories from "./PromotionCategories"
 
 const Promotions = () => {
     const { promotion, userId } = useParams()
