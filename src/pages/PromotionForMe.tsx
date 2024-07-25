@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Promotion } from '../types'
-import { apiGetpromotionForMe } from '../services/userService'
+import { apiGetCategories } from '../services/userService'
 import CardPromotion from '../components/cardPromotion'
 
 const PromotionForMe = () => {
@@ -11,15 +11,15 @@ const PromotionForMe = () => {
 
 
     useEffect(() => {
-        if (userId) {
-            apiGetpromotionForMe({ id: userId, beforeFunction: setCategoryData, promotion })
+        if (promotion) {
+            apiGetCategories({ beforeFunction: setCategoryData })
         }
     }, [])
 
 
     useEffect(() => {
         if (userId) {
-            apiGetpromotionForMe({ id: userId, beforeFunction: setCategoryData, promotion })
+            apiGetCategories({ beforeFunction: setCategoryData })
         }
 
         console.log(categoryData);
@@ -29,10 +29,10 @@ const PromotionForMe = () => {
 
     return (
         <div className='w-full flex items-center flex-col gap-3'>
-            
-            
-            
-            
+
+
+
+
             {
                 categoryData ? categoryData.map(promotion => <CardPromotion promotion={promotion} />) : null
             }

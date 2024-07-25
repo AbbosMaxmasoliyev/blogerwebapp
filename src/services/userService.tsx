@@ -2,9 +2,10 @@ import { User } from "../types";
 import BaseService from "./config"
 
 interface ArgumentId {
-    id: String,
+    id?: String,
     beforeFunction?: Function,
     promotion?: string
+    category: string
 }
 
 export const apiGetUserWithUserId = async ({ id, beforeFunction }: ArgumentId): Promise<User | { success: boolean }> => {
@@ -26,12 +27,12 @@ export const apiGetUserWithUserId = async ({ id, beforeFunction }: ArgumentId): 
 
 
 
-export const apiGetpromotionForMe = async ({ id, beforeFunction, promotion }: ArgumentId): Promise<User | { success: boolean }> => {
+export const apiGetpromotionWithCategory = async ({ id, beforeFunction, promotion, category }: ArgumentId): Promise<User | { success: boolean }> => {
     if (beforeFunction) {
 
         try {
 
-            let responseUser = await BaseService.get(`/promotion/${promotion}/${id}`)
+            let responseUser = await BaseService.get(`/promotion/${promotion}/category/${category}/${id}`)
             console.log(responseUser);
             beforeFunction(responseUser.data)
             return { success: true }
@@ -39,7 +40,8 @@ export const apiGetpromotionForMe = async ({ id, beforeFunction, promotion }: Ar
 
         } catch (error) {
             beforeFunction(null)
-
+            console.log(error);
+            
             return { success: false }
 
         }

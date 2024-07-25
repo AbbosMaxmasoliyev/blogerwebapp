@@ -1,8 +1,20 @@
 import { Link, useParams } from "react-router-dom"
-import { PromotionObject } from "../types"
+import { Promotion, PromotionObject } from "../types"
+import { useEffect, useState } from "react"
+import { apiGetpromotionWithCategory } from "../services/userService"
+import CardPromotion from "../components/cardPromotion"
 
 const Promotions = () => {
-    const { promotion, userId } = useParams()
+    const { promotion, userId, category } = useParams()
+
+    const [promotions, setPromotions] = useState<Promotion[] | null>(null)
+    useEffect(() => {
+        if (category) {
+            apiGetpromotionWithCategory({ category, beforeFunction: setPromotions, promotion, id: userId })
+        }
+    }, [])
+    console.log(promotions);
+
     const navigateInformation: PromotionObject[] = [
         {
             title: "Объявление",
@@ -33,12 +45,7 @@ const Promotions = () => {
             <div className="w-11/12 flex justify-between items-center">
                 <h1 className="text-xl text-start  my-3 font-semibold">{promotionName}</h1>
                 {
-                    promotion === "collaboration" && <Link
-                        to={`/user/${userId}/create/${promotion}`}
-                        className="text-white bg-gray-700   focus:ring-4  font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-white hover:text-gray-800 focus:outline-none focus:ring-gray-800"
-                    >
-                        Добавить
-                    </Link>
+                    promotions && promotions.map(promotion => <CardPromotion promotion={promotion} />)
                 }
             </div>
         </div>
