@@ -7,7 +7,7 @@ import CardPromotion from "../components/cardPromotion"
 const Promotions = () => {
     const { promotion, userId, category } = useParams()
 
-    const [promotions, setPromotions] = useState<Promotion[] | null>(null)
+    const [promotions, setPromotions] = useState<Promotion[] | null | boolean>(null)
     useEffect(() => {
         if (category) {
             apiGetpromotionWithCategory({ category, beforeFunction: setPromotions, promotion, id: userId })
@@ -42,11 +42,16 @@ const Promotions = () => {
 
     return (
         <div className='bg-blue-950 bg-opacity-45 min-h-screen flex flex-col items-center py-5'>
-            <div className="w-11/12 flex justify-between items-center">
+            <div className="w-11/12 flex justify-between items-start flex-col">
                 <h1 className="text-xl text-start  my-3 font-semibold">{promotionName}</h1>
-                {
-                    promotions && promotions.map(promotion => <CardPromotion promotion={promotion} />)
-                }
+                <div className="flex justify-center flex-col items-center">
+                    {
+                        (promotions != null && typeof promotions != "boolean") && promotions.map(promotion => <CardPromotion promotion={promotion} />)
+                    }
+                    {
+                        (promotions != null && typeof promotions == "boolean" && promotions == false) && <h1>На данный момент для вас нет {promotionName}</h1>
+                    }
+                </div>
             </div>
         </div>
     )

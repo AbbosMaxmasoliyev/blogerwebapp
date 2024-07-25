@@ -39,7 +39,7 @@ export const apiGetpromotionWithCategory = async ({ id, beforeFunction, promotio
 
 
         } catch (error) {
-            beforeFunction(null)
+            beforeFunction(false)
             console.log(error);
             
             return { success: false }
