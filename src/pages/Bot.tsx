@@ -98,7 +98,7 @@ const Bot = () => {
         }),
         onSubmit: async (values) => {
             setStatus("loading")
-            let response = await BaseService.post(`http://localhost:3001/users/web/${userId}`, { ...values, action: 'web' })
+            let response = await BaseService.post(`/users/web/${userId}`, { ...values, action: 'web' })
             if (response.status === 200) {
                 setStatus("success")
             }
