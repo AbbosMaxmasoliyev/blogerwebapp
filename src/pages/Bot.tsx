@@ -1,8 +1,9 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { FaYoutube, FaInstagram, FaTelegram } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
+import BaseService from '../services/config';
 
 
 
@@ -36,7 +37,7 @@ const Success = () => {
                     <path
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                 </svg>
-                <p className="text-xl font-bold font-awesome text-white">Muvaffaqqiyatli amalga oshirildi</p>
+                <p className="text-xl font-bold font-awesome text-white text-center">Muvaffaqqiyatli amalga oshirildi</p>
             </div>
         </div>
     );
@@ -66,6 +67,7 @@ const Bot = () => {
 
     const [status, setStatus] = useState("form")
     const { userId } = useParams()
+    console.log(userId);
 
     const formik = useFormik({
         initialValues: {
@@ -94,25 +96,13 @@ const Bot = () => {
             instagram_post_price: Yup.number().positive('Цена должна быть положительной'),
             telegram_post_price: Yup.number().positive('Цена должна быть положительной')
         }),
-        onSubmit: values => {
+        onSubmit: async (values) => {
             setStatus("loading")
-            fetch(`http://localhost:3001/users/web/${userId}`, {
-                method: 'POST',
-                body: JSON.stringify({ ...values, action: 'web' }),
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8'
-                }
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        setStatus("success")
-                    }
-                })
-                .catch(() => {
+            let response = await BaseService.post(`http://localhost:3001/users/web/${userId}`, { ...values, action: 'web' })
+            if (response.status === 200) {
+                setStatus("success")
+            }
 
-                    setStatus("error")
-                });
         }
     });
     if (status === "error") {
