@@ -6,6 +6,7 @@ import Navbar from './components/navbar';
 import CreatePromotion from './pages/CreatePromotion';
 import Waiting from './pages/Waiting';
 import Bot from "./pages/Bot"
+import PromotionCategories from './pages/PromotionCategories';
 
 const App: React.FC = () => {
 
@@ -24,7 +25,8 @@ const App: React.FC = () => {
         <Route path="/" element={<Navbar />}>
           <Route path='user/:userId' element={<Home />} />
           <Route path='/user/:userId/create/:promotion' element={<CreatePromotion />} />
-          <Route path='/user/:userId/for-me/:promotion' element={<Promotions />} />
+          <Route path='/user/:userId/promotion/:promotion' element={<PromotionCategories />} />
+          <Route path='/user/:userId/promotion/:promotion/category/:category' element={<Promotions />} />
           <Route path='/user/:userId/waiting' element={<Waiting />} />
           <Route path='/user/:userId/bot' element={<Bot />} />
         </Route>
