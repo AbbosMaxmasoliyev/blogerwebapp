@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
 
         console.log(hasBot);
         if (params.userId) {
-            apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser })
+            apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser,  })
         }
     }, [])
 

@@ -41,11 +41,9 @@ const CreatePromotion: React.FC = () => {
 
         try {
             setStatus("sending")
-            let responsePost = await BaseService.post(`/publish/${promotion}`, { ...values, owner: userId }, {
-                headers: {
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
-            })
+            let data = { ...values, owner: userId }
+            console.log(data);
+            let responsePost = await BaseService.post(`/${promotion}/create`, data)
             console.log(responsePost);
 
             if (responsePost.status === 201) {
@@ -54,6 +52,8 @@ const CreatePromotion: React.FC = () => {
 
 
         } catch (error) {
+            console.log(error);
+
             setStatus('fail')
 
         }
