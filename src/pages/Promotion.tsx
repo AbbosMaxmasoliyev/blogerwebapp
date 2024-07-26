@@ -8,7 +8,6 @@ import { FiSend } from "react-icons/fi";
 import 'react-toastify/dist/ReactToastify.css';
 import { openNotification } from '../utils/openNotifications'
 import { ToastContainer } from 'react-toastify'
-import { AxiosError } from 'axios'
 
 const PromotionView = () => {
     const { promotion, id, userId } = useParams()
