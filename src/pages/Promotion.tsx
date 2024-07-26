@@ -63,7 +63,7 @@ const PromotionView = () => {
 
 
             <div className="max-w-sm w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-max">
-                <div className='border h-52'>
+                <div className=' h-52'>
                     <ImageWithFallback src={""} alt={respPromotion.title} fallbackSrc='https://picsum.photos/350/250' />
                 </div>
                 <a href="#">
