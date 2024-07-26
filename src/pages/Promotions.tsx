@@ -46,7 +46,7 @@ const Promotions = () => {
                 <h1 className="text-xl text-start  my-3 font-semibold">{promotionName}</h1>
                 <div className="flex justify-center flex-col items-center">
                     {
-                        (promotions != null && typeof promotions != "boolean") && promotions.map(promotion => <CardPromotion promotion={promotion} />)
+                        (promotions != null && typeof promotions != "boolean") && promotions.map(promotionItem => <CardPromotion promotion={promotionItem} promotionType={promotion} userId={userId} />)
                     }
                     {
                         (promotions != null && typeof promotions == "boolean" && promotions == false) && <h1>На данный момент для вас нет {promotionName}</h1>

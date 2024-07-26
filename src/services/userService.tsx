@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { User } from "../types";
 import BaseService from "./config"
 
@@ -5,7 +6,8 @@ interface ArgumentId {
     id?: String,
     beforeFunction?: Function,
     promotion?: string
-    category?: string
+    category?: string,
+    promotionId?: string
 }
 
 export const apiGetUserWithUserId = async ({ id, beforeFunction }: ArgumentId): Promise<User | { success: boolean }> => {
@@ -41,13 +43,65 @@ export const apiGetpromotionWithCategory = async ({ id, beforeFunction, promotio
         } catch (error) {
             beforeFunction(false)
             console.log(error);
-            
+
             return { success: false }
 
         }
     } else {
         return { success: false }
     }
+
+
+}
+
+export const apiGetPromotionWithId = async ({ id, beforeFunction, promotion }: ArgumentId): Promise<User | { success: boolean }> => {
+    if (beforeFunction) {
+
+        try {
+
+            let response = await BaseService.get(`/${promotion}/getById/${id}`)
+            console.log(response);
+            beforeFunction(response.data)
+            return { success: true }
+
+
+        } catch (error) {
+            beforeFunction(false)
+            console.log(error);
+
+            return { success: false }
+
+        }
+    } else {
+        return { success: false }
+    }
+
+
+}
+
+
+export const apiAgreePromotion = async ({ id, promotion, promotionId }: ArgumentId): Promise<{ success: boolean | string }> => {
+
+    try {
+
+        let response = await BaseService.get(`/agree/${id}/promotion/${promotion}/${promotionId}`)
+        console.log(response);
+        return { success: true }
+
+
+    } catch (error) {
+        console.log(error);
+
+        if (error instanceof AxiosError && error.response?.status == 402) {
+            console.log("ERROR");
+
+            return { success: "Вы ранее дали согласие" }
+        }
+
+        return { success: false }
+
+    }
+
 
 
 }

@@ -3,15 +3,18 @@ import { Promotion } from '../types'
 import ImageWithFallback from './ImageWithFallback'
 import { BiSave } from 'react-icons/bi'
 import { apiPostPublish } from '../services/userService'
+import { Link } from 'react-router-dom'
 
 interface PromotionProps {
     promotion: Promotion,
     publish?: boolean,
     submitNext?: Function,
-    proKey?: string
+    proKey?: string,
+    userId?: string,
+    promotionType?: string
 }
 
-const CardPromotion: React.FC<PromotionProps> = ({ promotion, publish, proKey, submitNext }) => {
+const CardPromotion: React.FC<PromotionProps> = ({ promotion, publish, proKey, submitNext, userId, promotionType }) => {
 
 
     const handleSave = () => {
@@ -67,12 +70,12 @@ const CardPromotion: React.FC<PromotionProps> = ({ promotion, publish, proKey, s
                                 Публиковать
                                 <BiSave className='text-lg' />
                             </button>
-                            : <button className='flex gap-2'>
+                            : <Link to={`/user/${userId}/promotion/${promotionType}/view/${promotion._id}`} className='flex gap-2'>
                                 Read More
                                 <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                                 </svg>
-                            </button>
+                            </Link>
                     }
 
 

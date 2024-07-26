@@ -9,7 +9,7 @@ import { User } from '../types';
 
 
 
-const Loading = () => {
+export const Loading = () => {
     return (
         <div id="loading" className="w-full  flex-col justify-center p-6 ">
             <div role="status" className="flex flex-col items-center justify-center min-h-screen ">
@@ -62,7 +62,7 @@ const Available = () => {
     );
 };
 
-const Error = () => {
+export const Error = () => {
     return (
         <div id="error" className="w-full flex justify-center p-6 min-h-screen">
             <div
