@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { FaYoutube, FaInstagram, FaTelegram } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import BaseService from '../services/config';
+import { apiGetUserWithUserId } from '../services/userService';
+import { User } from '../types';
 
 
 
@@ -21,8 +23,8 @@ const Loading = () => {
                         d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                         fill="currentFill" />
                 </svg>
+                <p className="text-xl font-bold font-awesome text-white text-center">Загрузка...</p>
             </div>
-            <p className="text-xl font-bold font-awesome text-white text-center">Loading...</p>
         </div>
     );
 };
@@ -37,7 +39,24 @@ const Success = () => {
                     <path
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                 </svg>
-                <p className="text-xl font-bold font-awesome text-white text-center">Muvaffaqqiyatli amalga oshirildi</p>
+                <p className="text-xl font-bold font-awesome text-white text-center">Выполнено успешно</p>
+            </div>
+        </div>
+    );
+};
+
+
+const Available = () => {
+    return (
+        <div id="success" className="w-full flex justify-center p-6  flex-col items-center  min-h-screen ">
+            <div
+                className="flex flex-col items-center justify-center flex-shrink-0  rounded-lg text-green-500 w-6/12 h-32">
+                <svg className="w-32 h-32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <p className="text-xl font-bold font-awesome text-white text-center">Вы зарегистрированы</p>
             </div>
         </div>
     );
@@ -53,8 +72,7 @@ const Error = () => {
                     <path
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
                 </svg>
-                <span className="sr-only">Warning icon</span>
-                <p className="text-xl font-bold font-awesome text-white">Muvaffaqqiyatsizlikka uchradi</p>
+                <p className="text-xl font-bold font-awesome text-white">Неуспешный</p>
             </div>
         </div>
     );
@@ -66,8 +84,20 @@ const Error = () => {
 const Bot = () => {
 
     const [status, setStatus] = useState("form")
+    const [user, setUser] = useState<User | "failed" | "loading">("loading")
     const { userId } = useParams()
-    console.log(userId);
+    const getUser = async () => {
+        try {
+            await apiGetUserWithUserId({ id: userId, beforeFunction: setUser })
+
+        } catch (error) {
+            setUser("failed")
+        }
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
 
     const formik = useFormik({
         initialValues: {
@@ -105,16 +135,19 @@ const Bot = () => {
 
         }
     });
-    if (status === "error") {
+    if (status === "error" || user === "failed") {
         return (<Error />)
     }
     if (status === "success") {
         return (<Success />)
     }
-    if (status === "loading") {
+    if (status === "loading" || user === "loading") {
         return <Loading />
     }
-    if (status === "form") {
+    if (user.web_app.gender) {
+        return (<Available />)
+    }
+    if (status === "form" && !user.web_app.gender) {
         return (
             <section className="bg-gray-900 w-full min-h-screen flex flex-col justify-center items-center">
                 <div className="flex md:w-8/12 w-full flex-col items-center min-h-screen justify-center px-6 py-8 mx-auto lg:py-0">
