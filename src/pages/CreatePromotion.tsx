@@ -26,6 +26,8 @@ const validationSchema = Yup.object({
 });
 
 const CreatePromotion: React.FC = () => {
+
+
     const { promotion, userId } = useParams()
     const [categories, setCategories] = useState<{ value: string, label: string }[] | null>(null)
     const [text, setText] = useState<string | null>(null)
@@ -38,12 +40,25 @@ const CreatePromotion: React.FC = () => {
         category: '',
     };
 
+
+
+
+
     const handleSubmit = async (values: Promotion) => {
 
+        useEffect(() => {
+            if (typeof window !== 'undefined') {
+                console.log('Telegram:', window?.Telegram);
+                setText('Telegram WebApp:', window?.Telegram?.WebApp)
+                console.log('Telegram WebApp:', window?.Telegram?.WebApp);
+                if (window?.Telegram && window?.Telegram?.WebApp) {
+                    window?.Telegram.WebApp.expand();
+                }
+            }
+        }, [])
 
 
-
-        const formdata = new FormData();
+        const formdata = new FormData();    
         if (values.img instanceof File) {
             formdata.append("image", values.img);
             console.log(values);
@@ -195,3 +210,6 @@ const CreatePromotion: React.FC = () => {
 };
 
 export default CreatePromotion;
+
+
+
