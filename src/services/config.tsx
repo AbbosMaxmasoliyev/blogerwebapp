@@ -1,5 +1,5 @@
 import axios from "axios"
-export const API_PREFIX: string = "http://localhost:3001"
+export const API_PREFIX: string = "https://bloggerbot.uz"
 
 const BaseService = axios.create({
     baseURL: API_PREFIX,
