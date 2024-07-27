@@ -3,7 +3,6 @@ import { Promotion, PromotionObject } from "../types"
 import { useEffect, useState } from "react"
 import { apiGetpromotionWithCategory } from "../services/userService"
 import CardPromotion from "../components/cardPromotion"
-import FileInput from "../components/fileInput"
 
 const Promotions = () => {
     const { promotion, userId, category } = useParams()
