@@ -46,9 +46,7 @@ const Promotions = () => {
             <div className="w-11/12 flex justify-between items-start flex-col">
                 <h1 className="text-xl text-start  my-3 font-semibold">{promotionName}</h1>
 
-                <div>
-                    <FileInput />
-                </div>
+
                 <div className="flex justify-center flex-col items-center">
                     {
                         (promotions != null && typeof promotions != "boolean") && promotions.map(promotionItem => <CardPromotion promotion={promotionItem} promotionType={promotion} userId={userId} />)

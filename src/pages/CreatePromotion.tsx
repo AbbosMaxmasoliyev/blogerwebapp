@@ -26,12 +26,11 @@ const validationSchema = Yup.object({
 });
 
 const CreatePromotion: React.FC = () => {
+    const { promotion, userId } = useParams();
+    const [categories, setCategories] = useState<{ value: string, label: string }[] | null>(null);
+    const [text, setText] = useState<string | null>(null);
+    const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form");
 
-
-    const { promotion, userId } = useParams()
-    const [categories, setCategories] = useState<{ value: string, label: string }[] | null>(null)
-    const [text, setText] = useState<string | null>(null)
-    const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form")
     const initialValues: Promotion = {
         title: '',
         img: null,
@@ -40,64 +39,52 @@ const CreatePromotion: React.FC = () => {
         category: '',
     };
 
-
-
-
-
     const handleSubmit = async (values: Promotion) => {
+        setStatus('sending');
 
+        // FormData obyektini yaratamiz
+        const formData = new FormData();
 
-
-
-        alert(values.img?.name)
-
-
-        const formdata = new FormData();
+        // Faylni formData ga qo'shamiz
         if (values.img instanceof File) {
-            formdata.append("image", values.img);
-            console.log(values);
-
+            formData.append('image', values.img);
         }
-
 
         try {
-            let imageREsponse = await axios.post(`${API_PREFIX}/upload`, formdata, {
+            // Rasmni serverga yuboramiz
+            const imageResponse = await axios.post(`${API_PREFIX}/upload`, formData, {
                 headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
 
-            values.img = imageREsponse.data.url
-            alert(values)
-            setStatus("sending")
-            let data = { ...values, owner: userId }
-            console.log(data);
-            let responsePost = await BaseService.post(`/${promotion}/create`, data)
-            console.log(responsePost);
-            setText(JSON.stringify(responsePost))
+            // Rasm URL manzilini olish
+            const imageUrl = imageResponse.data.url;
+            // values.img ni yangilaymiz
+            values.img = imageUrl;
+
+            // Promotion ma'lumotlarini serverga yuboramiz
+            const data = { ...values, owner: userId };
+            const responsePost = await BaseService.post(`/${promotion}/create`, data);
+
+            setText(JSON.stringify(responsePost));
             if (responsePost.status === 201) {
-                setStatus('success')
+                setStatus('success');
             }
-
-
         } catch (error) {
-            setText(JSON.stringify(error))
-            console.log(error);
-
-            setStatus('fail')
-
+            console.error('Xatolik:', error);
+            setText(JSON.stringify(error));
+            setStatus('fail');
         }
-
-
     };
 
     useEffect(() => {
-        apiGetCategories({ beforeFunction: setCategories })
-    }, [])
+        apiGetCategories({ beforeFunction: setCategories });
+    }, []);
 
     return (
-        <div className="w-full flex justify-center py-5  ">
-            <div className="max-w-sm w-11/12 mx-auto   p-3  rounded-lg shadow  ">
+        <div className="w-full flex justify-center py-5">
+            <div className="max-w-sm w-11/12 mx-auto p-3 rounded-lg shadow">
                 <h1>{window.location.toString()}</h1>
                 {
                     status === "form" ? <Formik
@@ -144,8 +131,6 @@ const CreatePromotion: React.FC = () => {
                                     <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
 
-
-
                                 <div className="mb-5">
                                     <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Выберите категорию</label>
                                     <Field as="select" id="category" name="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
@@ -157,13 +142,7 @@ const CreatePromotion: React.FC = () => {
                                     <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
 
-                                <div className="flex items-start mb-5">
-                                    <div className="flex items-center h-5">
-                                        <Field type="checkbox" id="agree" name="agree" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
-                                    </div>
-                                    <label htmlFor="agree" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Я согласен с <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">условиями и положениями</a></label>
-                                    <ErrorMessage name="agree" component="div" className="text-red-500 text-sm mt-1" />
-                                </div>
+
 
                                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>
                                     Зарегистрировать новый аккаунт
@@ -173,13 +152,12 @@ const CreatePromotion: React.FC = () => {
                     </Formik> : null
                 }
                 {
-                    status != "form" ?
+                    status !== "form" ?
                         <h1 className='font-bold'>
                             {
                                 status === "success" ? <>
                                     Создано успешно
                                     <span>{text}</span>
-
                                 </> : null
                             }
                             {
@@ -188,7 +166,6 @@ const CreatePromotion: React.FC = () => {
                                     <span>{text}</span>
                                 </> : null
                             }
-
                             {
                                 status === "sending" ? <>
                                     <h1>Создание</h1>
@@ -197,13 +174,9 @@ const CreatePromotion: React.FC = () => {
                         </h1>
                         : null
                 }
-
             </div>
         </div>
     );
 };
 
 export default CreatePromotion;
-
-
-
