@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_PREFIX } from '../services/config';
 
 const FileUpload: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
@@ -18,26 +19,21 @@ const FileUpload: React.FC = () => {
         }
 
         const formData = new FormData();
-        formData.append('document', file);
+        formData.append('image', file);
 
         try {
             const response = await axios.post(
-                `https://api.telegram.org/bot6739637081:AAGgnoDSHWV69Dbhb95GOzf0UzcODf2Ou7w/sendDocument`,
-                {
-                    chat_id: "1094968462",
-                    document: file,
-                },
+                `${API_PREFIX}/upload`, // O'zingizning server URL'ingiz
+                formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 }
             );
-            console.log(response);
-
-            setStatus('Fayl muvaffaqiyatli yuklandi');
+            setStatus('Fayl muvaffaqiyatli yuklandi: ' + JSON.stringify(response.data));
         } catch (error) {
-            console.error('Fayl yuklash xatolik:', error);
+            console.error('Fayl yuklashda xatolik:', error);
             setStatus('Fayl yuklashda xatolik yuz berdi');
         }
     };
