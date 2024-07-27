@@ -27,6 +27,7 @@ const validationSchema = Yup.object({
 const CreatePromotion: React.FC = () => {
     const { promotion, userId } = useParams()
     const [categories, setCategories] = useState<{ value: string, label: string }[] | null>(null)
+    const [text, setText] = useState<string | null>(null)
     const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form")
     const initialValues: Promotion = {
         title: '',
@@ -72,7 +73,7 @@ const CreatePromotion: React.FC = () => {
 
 
                 } catch (error) {
-                    alert(JSON.stringify(error))
+                    setText(JSON.stringify(error))
 
                     setStatus('fail')
 
@@ -176,6 +177,7 @@ const CreatePromotion: React.FC = () => {
                             {
                                 status === "fail" ? <>
                                     Ошибка создания
+                                    <span>{text}</span>
                                 </> : null
                             }
 
