@@ -66,7 +66,7 @@ const CreatePromotion: React.FC = () => {
                     console.log(data);
                     let responsePost = await BaseService.post(`/${promotion}/create`, data)
                     console.log(responsePost);
-
+                    setText(JSON.stringify(responsePost))
                     if (responsePost.status === 201) {
                         setStatus('success')
                     }
@@ -176,6 +176,8 @@ const CreatePromotion: React.FC = () => {
                             {
                                 status === "success" ? <>
                                     Создано успешно
+                                    <span>{text}</span>
+
                                 </> : null
                             }
                             {
