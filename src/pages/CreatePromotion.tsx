@@ -72,7 +72,7 @@ const CreatePromotion: React.FC = () => {
 
 
                 } catch (error) {
-                    console.log(error);
+                    alert(JSON.stringify(error))
 
                     setStatus('fail')
 
