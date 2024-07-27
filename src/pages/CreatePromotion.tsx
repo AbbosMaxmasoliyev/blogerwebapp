@@ -49,6 +49,9 @@ const CreatePromotion: React.FC = () => {
 
 
 
+        alert(values.img?.name)
+
+
         const formdata = new FormData();
         if (values.img instanceof File) {
             formdata.append("image", values.img);
