@@ -79,7 +79,8 @@ const CreatePromotion: React.FC = () => {
 
                 }
             })
-            .catch(() => {
+            .catch((error) => {
+                setText(JSON.stringify(error))
                 setStatus("fail");
             });
 
