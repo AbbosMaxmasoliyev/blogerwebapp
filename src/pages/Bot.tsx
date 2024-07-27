@@ -117,9 +117,9 @@ const Bot = () => {
             gender: Yup.string().required('Пол обязателен'),
             role: Yup.string().required('Роль обязательна'),
             category: Yup.string().required('Категория обязательна'),
-            youtube: Yup.string().url('Неверный URL'),
-            instagram: Yup.string().required('Instagram профиль обязателен'),
-            telegram: Yup.string().url('Неверный URL'),
+            youtube: Yup.string(),
+            instagram: Yup.string(),
+            telegram: Yup.string(),
             you_tube_price: Yup.number().positive('Цена должна быть положительной'),
             instagram_reels_price: Yup.number().positive('Цена должна быть положительной'),
             instagram_stories_price: Yup.number().positive('Цена должна быть положительной'),
@@ -248,7 +248,7 @@ const Bot = () => {
                                         <FaYoutube className="mr-2" style={{ color: 'red' }} /> YouTube
                                     </label>
                                     <input
-                                        type="url"
+                                        type="text"
                                         name="youtube"
                                         id="youtube"
                                         placeholder="YouTube профиль"
