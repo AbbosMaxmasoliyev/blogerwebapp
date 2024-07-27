@@ -13,6 +13,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
     document.documentElement.classList.add('dark')
+    useEffect(() => {
+      if (window.Telegram?.WebApp) {
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+      }
+    }, []);
   }, [])
 
 
