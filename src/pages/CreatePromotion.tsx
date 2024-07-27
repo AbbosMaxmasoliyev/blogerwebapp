@@ -28,7 +28,6 @@ const validationSchema = Yup.object({
 const CreatePromotion: React.FC = () => {
     const { promotion, userId } = useParams();
     const [categories, setCategories] = useState<{ value: string, label: string }[] | null>(null);
-    const [text, setText] = useState<string | null>(null);
     const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form");
 
     const initialValues: Promotion = {
@@ -67,13 +66,11 @@ const CreatePromotion: React.FC = () => {
             const data = { ...values, owner: userId };
             const responsePost = await BaseService.post(`/${promotion}/create`, data);
 
-            setText(JSON.stringify(responsePost));
             if (responsePost.status === 201) {
                 setStatus('success');
             }
         } catch (error) {
             console.error('Xatolik:', error);
-            setText(JSON.stringify(error));
             setStatus('fail');
         }
     };
