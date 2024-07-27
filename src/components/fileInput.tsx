@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_PREFIX } from '../services/config';
 
 const FileInput: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -20,7 +21,7 @@ const FileInput: React.FC = () => {
         formData.append('file', selectedFile);
 
         try {
-            const response = await axios.post('YOUR_SERVER_URL/upload', formData, {
+            const response = await axios.post(`${API_PREFIX}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
