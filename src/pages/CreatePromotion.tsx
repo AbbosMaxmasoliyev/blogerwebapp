@@ -51,15 +51,15 @@ const CreatePromotion: React.FC = () => {
         }
 
 
-        let imageREsponse = await axios.post(`${API_PREFIX}/upload`, formdata, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-
-        values.img = imageREsponse.data.url
-        alert(values)
         try {
+            let imageREsponse = await axios.post(`${API_PREFIX}/upload`, formdata, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+
+            values.img = imageREsponse.data.url
+            alert(values)
             setStatus("sending")
             let data = { ...values, owner: userId }
             console.log(data);
