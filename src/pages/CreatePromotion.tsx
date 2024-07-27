@@ -5,6 +5,7 @@ import '../index.css'; // CSS faylini qo'shish
 import { apiGetCategories } from '../services/userService';
 import BaseService, { API_PREFIX } from '../services/config';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 // Promotion interfeysi
 interface Promotion {
@@ -49,42 +50,34 @@ const CreatePromotion: React.FC = () => {
 
         }
 
-        const requestOptions = {
-            method: "POST",
-            body: formdata,
-        };
 
-        await fetch(`${API_PREFIX}/upload`, requestOptions)
-            .then((response) => response.json())
-            .then(async (result) => {
-                values.img = result.url
-                console.log(values);
+        let imageREsponse = await axios.post(`${API_PREFIX}/upload`, formdata, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
 
-                try {
-                    setStatus("sending")
-                    let data = { ...values, owner: userId }
-                    console.log(data);
-                    let responsePost = await BaseService.post(`/${promotion}/create`, data)
-                    console.log(responsePost);
-                    setText(JSON.stringify(responsePost))
-                    if (responsePost.status === 201) {
-                        setStatus('success')
-                    }
+        values.img = imageREsponse.data.url
+        alert(values)
+        try {
+            setStatus("sending")
+            let data = { ...values, owner: userId }
+            console.log(data);
+            let responsePost = await BaseService.post(`/${promotion}/create`, data)
+            console.log(responsePost);
+            setText(JSON.stringify(responsePost))
+            if (responsePost.status === 201) {
+                setStatus('success')
+            }
 
 
-                } catch (error) {
-                    setText(JSON.stringify(error))
-                    console.log(error);
+        } catch (error) {
+            setText(JSON.stringify(error))
+            console.log(error);
 
-                    setStatus('fail')
+            setStatus('fail')
 
-                }
-            })
-            .catch((error) => {
-                setText(error.toString())
-                console.log();
-                setStatus("fail");
-            });
+        }
 
 
     };
