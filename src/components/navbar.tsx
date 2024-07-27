@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
 
         console.log(hasBot);
         if (params.userId) {
-            apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser,  })
+            apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser, })
         }
     }, [])
 
@@ -90,10 +90,13 @@ const Navbar: React.FC = () => {
                                             <BiArrowBack />
                                         </button> : null
                                     }
-                                    <Link to={`/user/${params.userId}`}>
+                                    <Link to={`/user/${params.userId}`}
+                                        className='w-7 h-8 overflow-x-hidden z-1  block '
+                                    >
                                         <img
-                                            src="https://flowbite.com/docs/images/logo.svg"
-                                            className="mr-3 h-6 sm:h-9"
+
+                                            src="https://optim.tildacdn.one/tild3461-3433-4965-a238-333336363931/-/resize/284x/-/format/webp/bloger-agency-logo-0.png"
+                                            className="mr-3  sm:h-9 h-full  max-w-[175px] block    z-0"
                                             alt="Flowbite Logo"
                                         />
                                     </Link>

@@ -151,8 +151,18 @@ const Bot = () => {
         return (
             <section className="bg-gray-900 w-full min-h-screen flex flex-col justify-center items-center">
                 <div className="flex md:w-8/12 w-full flex-col items-center min-h-screen justify-center px-6 py-8 mx-auto lg:py-0">
-                    <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-white">
-                        <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+                    <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-white gap-2">
+
+                        <div
+                            className='w-7 h-8 overflow-x-hidden z-1  block '
+                        >
+                            <img
+
+                                src="https://optim.tildacdn.one/tild3461-3433-4965-a238-333336363931/-/resize/284x/-/format/webp/bloger-agency-logo-0.png"
+                                className="mr-3  sm:h-9 h-full  max-w-[175px] block    z-0"
+                                alt="Flowbite Logo"
+                            />
+                        </div>
                         Bloger Agency
                     </a>
                     <div className="rounded-lg shadow border md:mt-0 w-full xl:p-0 bg-gray-800 border-gray-700">

@@ -1,8 +1,8 @@
 import axios from "axios"
-
+export const API_PREFIX: string = "https://bloggerbot.uz"
 
 const BaseService = axios.create({
-    baseURL: "https://bloggerbot.uz",
+    baseURL: API_PREFIX,
     timeout: 6000
 })
 

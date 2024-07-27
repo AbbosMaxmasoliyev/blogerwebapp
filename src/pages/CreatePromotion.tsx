@@ -3,13 +3,13 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import '../index.css'; // CSS faylini qo'shish
 import { apiGetCategories } from '../services/userService';
-import BaseService from '../services/config';
+import BaseService, { API_PREFIX } from '../services/config';
 import { useParams } from 'react-router-dom';
 
 // Promotion interfeysi
 interface Promotion {
     title: string;
-    img: string;
+    img: File | null;
     price: number;
     description: string;
     category: string;
@@ -18,7 +18,7 @@ interface Promotion {
 // Yup valitsiyatsiya sxemasi
 const validationSchema = Yup.object({
     title: Yup.string().required('Название обязательно'),
-    img: Yup.string().url('Недопустимый формат URL').required('URL изображения обязателен'),
+    img: Yup.mixed().required('Требуется загрузка файла'),
     price: Yup.number().required('Цена обязательна').positive('Цена должна быть положительной'),
     description: Yup.string().required('Описание обязательно'),
     category: Yup.string().required('Категория обязательна'),
@@ -30,33 +30,59 @@ const CreatePromotion: React.FC = () => {
     const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form")
     const initialValues: Promotion = {
         title: '',
-        img: '',
+        img: null,
         price: 0,
         description: '',
         category: '',
     };
 
     const handleSubmit = async (values: Promotion) => {
-        console.log(values);
-
-        try {
-            setStatus("sending")
-            let data = { ...values, owner: userId }
-            console.log(data);
-            let responsePost = await BaseService.post(`/${promotion}/create`, data)
-            console.log(responsePost);
-
-            if (responsePost.status === 201) {
-                setStatus('success')
-            }
 
 
-        } catch (error) {
-            console.log(error);
 
-            setStatus('fail')
+
+        const formdata = new FormData();
+        if (values.img instanceof File) {
+            formdata.append("image", values.img);
+            console.log(values);
 
         }
+
+        const requestOptions = {
+            method: "POST",
+            body: formdata,
+        };
+
+        await fetch(`${API_PREFIX}/upload`, requestOptions)
+            .then((response) => response.json())
+            .then(async (result) => {
+                values.img = result.url
+                console.log(values);
+
+                try {
+                    setStatus("sending")
+                    let data = { ...values, owner: userId }
+                    console.log(data);
+                    let responsePost = await BaseService.post(`/${promotion}/create`, data)
+                    console.log(responsePost);
+
+                    if (responsePost.status === 201) {
+                        setStatus('success')
+                    }
+
+
+                } catch (error) {
+                    console.log(error);
+
+                    setStatus('fail')
+
+                }
+            })
+            .catch((error) => {
+                setStatus("fail");
+            });
+
+
     };
 
     useEffect(() => {
@@ -72,7 +98,7 @@ const CreatePromotion: React.FC = () => {
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}
                     >
-                        {({ isSubmitting }) => (
+                        {({ isSubmitting, setFieldValue }) => (
                             <Form className="promotion-form">
                                 <div className="mb-5">
                                     <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Название</label>
@@ -81,8 +107,21 @@ const CreatePromotion: React.FC = () => {
                                 </div>
 
                                 <div className="mb-5">
-                                    <label htmlFor="img" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL изображения</label>
-                                    <Field type="text" id="img" name="img" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                                    <label htmlFor="img" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Загрузить изображение</label>
+                                    <div className="block">
+                                        <input
+                                            id="img"
+                                            name="img"
+                                            type="file"
+                                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                            onChange={(event) => {
+                                                if (event.currentTarget.files) {
+                                                    setFieldValue('img', event.currentTarget.files[0]);
+                                                }
+                                            }}
+                                        />
+                                    </div>
+
                                     <ErrorMessage name="img" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
 
