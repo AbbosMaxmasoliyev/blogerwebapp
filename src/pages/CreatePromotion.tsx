@@ -75,7 +75,7 @@ const CreatePromotion: React.FC = () => {
                 } catch (error) {
                     setText(JSON.stringify(error))
                     console.log(error);
-                    
+
                     setStatus('fail')
 
                 }
@@ -96,6 +96,7 @@ const CreatePromotion: React.FC = () => {
     return (
         <div className="w-full flex justify-center py-5  ">
             <div className="max-w-sm w-11/12 mx-auto   p-3  rounded-lg shadow  ">
+                <h1>{window.location.toString()}</h1>
                 {
                     status === "form" ? <Formik
                         initialValues={initialValues}
