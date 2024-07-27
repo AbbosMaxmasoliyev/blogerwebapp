@@ -54,7 +54,7 @@ const CreatePromotion: React.FC = () => {
             body: formdata,
         };
 
-        await fetch(`${API_PREFIX}/uploa`, requestOptions)
+        await fetch(`${API_PREFIX}/upload`, requestOptions)
             .then((response) => response.json())
             .then(async (result) => {
                 values.img = result.url
@@ -74,13 +74,15 @@ const CreatePromotion: React.FC = () => {
 
                 } catch (error) {
                     setText(JSON.stringify(error))
-
+                    console.log(error);
+                    
                     setStatus('fail')
 
                 }
             })
             .catch((error) => {
                 setText(JSON.stringify(error))
+                console.log(error);
                 setStatus("fail");
             });
 
