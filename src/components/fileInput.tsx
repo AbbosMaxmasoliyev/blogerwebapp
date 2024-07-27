@@ -16,9 +16,10 @@ const FileInput: React.FC = () => {
             alert('Iltimos, fayl tanlang!');
             return;
         }
-
+        console.log(selectedFile);
+        
         const formData = new FormData();
-        formData.append('file', selectedFile);
+        formData.append('image', selectedFile);
 
         try {
             const response = await axios.post(`${API_PREFIX}/upload`, formData, {
