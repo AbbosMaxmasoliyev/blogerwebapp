@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "push": "npm run push:commit --",
+    "push:commit": "git add . && git commit -m \"$npm_config_message\" && git push origin main"
   },
   "dependencies": {
     "axios": "^1.7.2",

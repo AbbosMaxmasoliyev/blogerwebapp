@@ -54,7 +54,7 @@ const CreatePromotion: React.FC = () => {
             body: formdata,
         };
 
-        await fetch(`${API_PREFIX}/upload`, requestOptions)
+        await fetch(`${API_PREFIX}/uploa`, requestOptions)
             .then((response) => response.json())
             .then(async (result) => {
                 values.img = result.url
