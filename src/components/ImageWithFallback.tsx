@@ -14,7 +14,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({ src, fallbackSrc,
             style={{ backgroundImage: `url(${fallbackSrc})` }}
         >
             <img
-                className="w-full h-full rounded-t-lg"
+                className="w-full h-full rounded-t-lg object-cover object-center"
                 src={src}
                 alt={alt}
                 onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.style.display = 'none'}
