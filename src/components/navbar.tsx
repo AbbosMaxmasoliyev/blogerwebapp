@@ -12,12 +12,12 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const params = useParams()
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    // const [isOpen, setIsOpen] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>();
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+    // const toggleMenu = () => {
+    //     setIsOpen(!isOpen);
+    // };
     const goBack = () => {
         navigate(-1)
     }
