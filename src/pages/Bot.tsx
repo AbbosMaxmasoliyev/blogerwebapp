@@ -106,7 +106,7 @@ const Bot = () => {
 
     const sendMessageToBot = async () => {
         try {
-            const userId = window.Telegram.WebApp?.initDataUnsafe.user.id;
+            const userId = window.Telegram?.WebApp?.initDataUnsafe.user.id;
             await axios.post(`${API_PREFIX}/close`, { userId }, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -120,13 +120,14 @@ const Bot = () => {
     const handleClose = () => {
 
         sendMessageToBot();
-        window.Telegram.WebApp.close();
+        window.Telegram?.WebApp.close();
     };
 
     useEffect(() => {
         // Telegram Web App tayyor ekanligini bildirish
-        if (window.Telegram.WebApp) {
-            window.Telegram.WebApp.ready();
+        if (window.Telegram?.WebApp) {
+            window.Telegram?.WebApp.ready();
+            alert("tayyor")
         }
 
         // Botga xabar yuborish funksiyasi
@@ -135,7 +136,7 @@ const Bot = () => {
         // 5 soniyadan keyin Telegram Web App'ni yopish va botga xabar yuborish
         const timer = setTimeout(() => {
             sendMessageToBot();
-            window.Telegram.WebApp.close();
+            window.Telegram?.WebApp.close();
         }, 5000);
 
         // Komponent unmounted bo'lganda timer'ni tozalash
