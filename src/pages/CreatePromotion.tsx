@@ -6,7 +6,7 @@ import { apiGetCategories } from '../services/userService';
 import BaseService, { API_PREFIX } from '../services/config';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+// import { Error } from './Bot';
 // Promotion interfeysi
 interface Promotion {
     title: string;

@@ -86,6 +86,16 @@ const Bot = () => {
     const [status, setStatus] = useState("form")
     const [user, setUser] = useState<User | "failed" | "loading">("loading")
     const { userId } = useParams()
+
+
+
+    const handleClose = () => {
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.close) {
+            window.Telegram.WebApp.close();
+        } else {
+            console.error('Telegram WebApp API not available.');
+        }
+    };
     const getUser = async () => {
         try {
             await apiGetUserWithUserId({ id: userId, beforeFunction: setUser })
@@ -98,6 +108,9 @@ const Bot = () => {
     useEffect(() => {
         getUser()
     }, [])
+
+
+
 
     const formik = useFormik({
         initialValues: {
@@ -131,6 +144,9 @@ const Bot = () => {
             let response = await BaseService.post(`/users/web/${userId}`, { ...values, action: 'web' })
             if (response.status === 200) {
                 setStatus("success")
+                setTimeout(() => {
+                    handleClose()
+                }, 2000)
             }
 
         }

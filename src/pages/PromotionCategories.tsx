@@ -59,8 +59,22 @@ const PromotionCategories = () => {
                 {
                     categories ? categories.map(category => <Link
                         to={`/user/${userId}/promotion/${promotion}/category/${category.value}`}
-                        className='text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 text-center'
-                    >{category.label}</Link>) : null
+                        className='bg-blue-950   ring-0 focus:ring-0 active:ring-0'
+                    >
+                        <div className="group  p-5 cursor-pointer relative text-xl font-normal border-0 flex items-center justify-center bg-transparenttext-red-500  h-auto   w-full   overflow-hidden    transition-all duration-100 ">
+                            <span className="group-hover:w-full absolute left-0 h-full w-5 border-y border-l border-blue-500 transition-all duration-500">
+                            </span>
+
+                            <p className="group-hover:opacity-0 group-hover:translate-x-[-100%] absolute translate-x-0 transition-all duration-200">{category.label}</p>
+
+                            <span className="group-hover:translate-x-0  group-hover:opacity-100 absolute  translate-x-full opacity-0  transition-all duration-200">{category.label}
+                            </span>
+
+                            <span
+                                className="group-hover:w-full absolute right-0 h-full w-5  border-y border-r  border-blue-500 transition-all duration-500">
+                            </span>
+                        </div>
+                    </Link>) : null
                 }
             </div>
         </div>

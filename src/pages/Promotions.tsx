@@ -46,7 +46,7 @@ const Promotions = () => {
                 <h1 className="text-xl text-start  my-3 font-semibold">{promotionName}</h1>
 
 
-                <div className="flex justify-center flex-col items-center">
+                <div className="flex justify-center flex-col items-center gap-3">
                     {
                         (promotions != null && typeof promotions != "boolean") && promotions.map(promotionItem => <CardPromotion promotion={promotionItem} promotionType={promotion} userId={userId} />)
                     }
