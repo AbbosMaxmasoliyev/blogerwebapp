@@ -90,12 +90,14 @@ const Bot = () => {
 
 
     const handleClose = () => {
-        if (window.Telegram && window.Telegram.WebApp ) {
+        if (window.Telegram) {
+            alert("yopiladi")
             window.Telegram.WebApp.close();
         } else {
-            alert("yopilmaydi")
+            alert("yopilmaydi",)
             console.error('Telegram WebApp API not available.');
         }
+
     };
     const getUser = async () => {
         try {
