@@ -3,9 +3,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { FaYoutube, FaInstagram, FaTelegram } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import BaseService from '../services/config';
+import BaseService, { API_PREFIX } from '../services/config';
 import { apiGetUserWithUserId } from '../services/userService';
 import { User } from '../types';
+import axios from 'axios';
 
 
 
@@ -89,16 +90,7 @@ const Bot = () => {
 
 
 
-    const handleClose = () => {
-        if (window.Telegram) {
-            alert("yopiladi")
-            window.Telegram.WebApp.close();
-        } else {
-            alert("yopilmaydi",)
-            console.error('Telegram WebApp API not available.');
-        }
 
-    };
     const getUser = async () => {
         try {
             await apiGetUserWithUserId({ id: userId, beforeFunction: setUser })
@@ -111,6 +103,47 @@ const Bot = () => {
     useEffect(() => {
         getUser()
     }, [])
+
+    const sendMessageToBot = async () => {
+        try {
+            const userId = window.Telegram.WebApp?.initDataUnsafe.user.id;
+            await axios.post(`${API_PREFIX}/close`, { userId }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (error) {
+            console.error('Error sending message to bot:', error);
+        }
+    };
+
+    const handleClose = () => {
+
+        sendMessageToBot();
+        window.Telegram.WebApp.close();
+    };
+
+    useEffect(() => {
+        // Telegram Web App tayyor ekanligini bildirish
+        if (window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready();
+        }
+
+        // Botga xabar yuborish funksiyasi
+
+
+        // 5 soniyadan keyin Telegram Web App'ni yopish va botga xabar yuborish
+        const timer = setTimeout(() => {
+            sendMessageToBot();
+            window.Telegram.WebApp.close();
+        }, 5000);
+
+        // Komponent unmounted bo'lganda timer'ni tozalash
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Tugma bosilganda Telegram Web App'ni yopish va botga xabar yuborish
+
 
 
 

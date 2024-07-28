@@ -11,9 +11,14 @@ declare global {
                     onClick: (callback: () => void) => void;
                 };
                 sendData: (data: string) => void;
+                initDataUnsafe: {
+                    user: {
+                        id: number;
+                    };
+                };
             };
         };
     }
 }
 
-export {};
+export { };
