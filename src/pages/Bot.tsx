@@ -90,9 +90,10 @@ const Bot = () => {
 
 
     const handleClose = () => {
-        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.close) {
+        if (window.Telegram && window.Telegram.WebApp ) {
             window.Telegram.WebApp.close();
         } else {
+            alert("yopilmaydi")
             console.error('Telegram WebApp API not available.');
         }
     };
