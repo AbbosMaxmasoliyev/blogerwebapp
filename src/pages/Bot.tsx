@@ -100,9 +100,6 @@ const Bot = () => {
         }
     }
 
-    useEffect(() => {
-        getUser()
-    }, [])
 
     const sendMessageToBot = async () => {
         try {
@@ -119,28 +116,26 @@ const Bot = () => {
 
     const handleClose = () => {
 
-        sendMessageToBot();
-        window.Telegram?.WebApp.close();
-    };
-
-    useEffect(() => {
-        // Telegram Web App tayyor ekanligini bildirish
-        if (window.Telegram?.WebApp) {
-            window.Telegram?.WebApp.ready();
-            alert("tayyor")
-        }
-
-        // Botga xabar yuborish funksiyasi
 
 
-        // 5 soniyadan keyin Telegram Web App'ni yopish va botga xabar yuborish
         const timer = setTimeout(() => {
             sendMessageToBot();
             window.Telegram?.WebApp.close();
-        }, 5000);
+        }, 2000);
 
         // Komponent unmounted bo'lganda timer'ni tozalash
         return () => clearTimeout(timer);
+    };
+
+    useEffect(() => {
+
+        // Telegram Web App tayyor ekanligini bildirish
+        if (window.Telegram?.WebApp) {
+            window.Telegram?.WebApp.ready();
+            getUser()
+        }
+
+
     }, []);
 
     // Tugma bosilganda Telegram Web App'ni yopish va botga xabar yuborish
