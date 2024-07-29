@@ -11,17 +11,12 @@ const Home = () => {
 
     const navigateInformation: PromotionObject[] = [
         {
-            title: "Объявление",
-            description: "Рекламируйте желаемое объявление или собственный рекламный сервис",
-            link: "announce"
-        },
-        {
             title: "Реклама",
             description: "Хотите рекламировать свои услуги?",
             link: "advertise"
         },
         {
-            title: "Сотрудничество",
+            title: "Коллаборация",
             description: "Хотите ли вы предоставить свои услуги клиентам посредством сотрудничества?",
             link: "collaboration"
         },
@@ -29,6 +24,11 @@ const Home = () => {
             title: "Бартер",
             description: "Делитесь рекламой с другими влиятельными лицами",
             link: "barter"
+        },
+        {
+            title: "Объявление",
+            description: "Рекламируйте желаемое объявление или собственный рекламный сервис",
+            link: "announce"
         },
     ]
     return (

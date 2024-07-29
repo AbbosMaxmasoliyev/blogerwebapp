@@ -23,7 +23,7 @@ interface WebApp {
 }
 
 export interface User {
-    web_app: WebApp;
+    web_app?: WebApp;
     _id: string;
     userId: string;
     action: string;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import '../index.css'; // CSS faylini qo'shish
 import { apiGetCategories } from '../services/userService';
 import BaseService, { API_PREFIX } from '../services/config';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 // import { Error } from './Bot';
 // Promotion interfeysi
 interface Promotion {
@@ -38,8 +38,7 @@ const CreatePromotion: React.FC = () => {
         category: '',
     };
 
-    const handleSubmit = async (values: Promotion) => {
-        setStatus('sending');
+    const handleSubmit = async (values: Promotion, { setFieldError }: FormikHelpers<Promotion>) => {
 
         // FormData obyektini yaratamiz
         const formData = new FormData();
@@ -70,8 +69,16 @@ const CreatePromotion: React.FC = () => {
                 setStatus('success');
             }
         } catch (error) {
-            console.error('Xatolik:', error);
-            setStatus('fail');
+
+
+            if (error instanceof AxiosError && error.response?.status == 413) {
+                console.log(error);
+                setStatus("form")
+                setFieldError('img', 'Fayl hajmi ruxsat etilganidan katta');
+            } else {
+                console.error('Xatolik:', error);
+                setStatus('fail');
+            }
         }
     };
 
@@ -83,13 +90,22 @@ const CreatePromotion: React.FC = () => {
         <div className="w-full flex justify-center py-5">
             <div className="max-w-sm w-11/12 mx-auto p-3 rounded-lg shadow">
                 {
+                    status == "sending" ? <>
+                        <h1>Создание</h1>
+                    </> : null
+                }
+                {
                     status === "form" ? <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}
                     >
                         {({ isSubmitting, setFieldValue }) => (
+
+
                             <Form className="promotion-form">
+
+
                                 <div className="mb-5">
                                     <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Название</label>
                                     <Field type="text" id="title" name="title" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
@@ -141,7 +157,7 @@ const CreatePromotion: React.FC = () => {
 
 
                                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>
-                                Публиковать
+                                    Публиковать
                                 </button>
                             </Form>
                         )}
@@ -160,11 +176,7 @@ const CreatePromotion: React.FC = () => {
                                     Ошибка создания
                                 </> : null
                             }
-                            {
-                                status === "sending" ? <>
-                                    <h1>Создание</h1>
-                                </> : null
-                            }
+
                         </h1>
                         : null
                 }

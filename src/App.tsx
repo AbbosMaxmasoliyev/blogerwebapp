@@ -8,6 +8,7 @@ import Waiting from './pages/Waiting';
 import Bot from "./pages/Bot"
 import PromotionCategories from './pages/PromotionCategories';
 import PromotionView from './pages/Promotion';
+import Profile from './pages/Profile';
 
 const App: React.FC = () => {
 
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           <Route path='/user/:userId/promotion/:promotion/category/:category' element={<Promotions />} />
           <Route path='/user/:userId/promotion/:promotion/view/:id' element={<PromotionView />} />
           <Route path='/user/:userId/waiting' element={<Waiting />} />
+          <Route path='/user/:userId/my-profile' element={<Profile />} />
           <Route path='/user/:userId/bot' element={<Bot />} />
         </Route>
       </Routes>

@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { User } from "../types";
 import BaseService from "./config"
+import { UserProps } from "../pages/Profile";
 
 interface ArgumentId {
     id?: String,
@@ -130,7 +131,27 @@ export const apiGetUser = async ({ beforeFunction }: { beforeFunction: Function 
 
 
 }
+export const apiUpdateUser = async ({ id, beforeFunction, data }: { id: string, beforeFunction: Function, data: UserProps }): Promise<{ success: boolean }> => {
 
+    try {
+
+        let response = await BaseService.post(`/users/web_app/${id}`, { ...data })
+        console.log(response.data);
+
+        beforeFunction()
+        return { success: true }
+
+
+    } catch (error) {
+        beforeFunction()
+
+        return { success: false }
+
+    }
+
+
+
+}
 
 
 
@@ -140,6 +161,34 @@ export const apiGetCategories = async ({ beforeFunction }: { beforeFunction: Fun
         try {
 
             let responseCategories = await BaseService.get(`/categories`)
+            console.log(responseCategories.data);
+
+            beforeFunction(responseCategories.data)
+            return { success: true }
+
+
+        } catch (error) {
+            beforeFunction(null)
+
+            return { success: false }
+
+        }
+    } else {
+        return { success: false }
+    }
+
+
+}
+
+
+
+
+export const apiGetRoles = async ({ beforeFunction }: { beforeFunction: Function }): Promise<{ success: boolean }> => {
+    if (beforeFunction) {
+
+        try {
+
+            let responseCategories = await BaseService.get(`/roles`)
             console.log(responseCategories.data);
 
             beforeFunction(responseCategories.data)

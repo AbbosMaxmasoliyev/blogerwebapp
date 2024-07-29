@@ -17,9 +17,9 @@ const Promotions = () => {
 
     const navigateInformation: PromotionObject[] = [
         {
-            title: "Объявление",
-            description: "Рекламируйте желаемое объявление или собственный рекламный сервис",
-            link: "announce"
+            title: "Коллаборация",
+            description: "Хотите ли вы предоставить свои услуги клиентам посредством сотрудничества?",
+            link: "collaboration"
         },
         {
             title: "Реклама",
@@ -27,14 +27,14 @@ const Promotions = () => {
             link: "advertise"
         },
         {
-            title: "Сотрудничество",
-            description: "Хотите ли вы предоставить свои услуги клиентам посредством сотрудничества?",
-            link: "collaboration"
-        },
-        {
             title: "Бартер",
             description: "Делитесь рекламой с другими влиятельными лицами",
             link: "barter"
+        },
+        {
+            title: "Объявление",
+            description: "Рекламируйте желаемое объявление или собственный рекламный сервис",
+            link: "announce"
         },
     ]
     let promotionName = navigateInformation.filter(item => item.link == promotion)[0].title
