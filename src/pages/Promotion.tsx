@@ -8,6 +8,7 @@ import { FiSend } from "react-icons/fi";
 import 'react-toastify/dist/ReactToastify.css';
 import { openNotification } from '../utils/openNotifications'
 import { ToastContainer } from 'react-toastify'
+import CreaterCard from '../components/creatorCard'
 
 const PromotionView = () => {
     const { promotion, id, userId } = useParams()
@@ -33,7 +34,7 @@ const PromotionView = () => {
     if (respPromotion === "fail") {
         return <Error />
     }
-    console.log(respPromotion);
+    console.log(promotion);
     const handleAgreePromotion = async () => {
         try {
             let responseAgree = await apiAgreePromotion({ id: userId, promotionId: respPromotion._id, promotion })
@@ -64,9 +65,9 @@ const PromotionView = () => {
 
             <div className="max-w-sm w-full  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-max">
 
-                <div className="h-52">
+                {respPromotion.img && promotion != "collaboration" ? <div className="h-52">
                     <ImageWithFallback src={respPromotion.img} alt={respPromotion.title} fallbackSrc='https://picsum.photos/350/250' />
-                </div>
+                </div> : null}
                 <div className="p-3"> <a href="#">
                     <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{respPromotion.title}</h5>
                 </a>
@@ -76,6 +77,11 @@ const PromotionView = () => {
                     </p>
                     <button type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 flex gap-2 items-center mt-3" onClick={handleAgreePromotion} disabled={!(agree == "normal")}>Соглашаться <FiSend /></button>
                 </div>
+
+                {
+                    typeof respPromotion.owner != "string" ? <CreaterCard {...respPromotion.owner} /> : null
+                }
+
             </div>
             <ToastContainer />
         </div>

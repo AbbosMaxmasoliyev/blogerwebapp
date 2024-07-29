@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import '../index.css'; // CSS faylini qo'shish
 import { apiGetCategories } from '../services/userService';
-import BaseService, { API_PREFIX } from '../services/config';
+import BaseService from '../services/config';
 import { useParams } from 'react-router-dom';
-import axios, { AxiosError } from 'axios';
-// import { Error } from './Bot';
-// Promotion interfeysi
+
+
+
+
 interface Promotion {
     title: string;
-    img: File | null;
+    // img: File | null;
     price: number;
     description: string;
     category: string;
@@ -19,7 +20,7 @@ interface Promotion {
 // Yup valitsiyatsiya sxemasi
 const validationSchema = Yup.object({
     title: Yup.string().required('Название обязательно'),
-    img: Yup.mixed().required('Требуется загрузка файла'),
+    // img: Yup.mixed().required('Требуется загрузка файла'),
     price: Yup.number().required('Цена обязательна').positive('Цена должна быть положительной'),
     description: Yup.string().required('Описание обязательно'),
     category: Yup.string().required('Категория обязательна'),
@@ -32,34 +33,34 @@ const CreatePromotion: React.FC = () => {
 
     const initialValues: Promotion = {
         title: '',
-        img: null,
+        // img: null,
         price: 0,
         description: '',
         category: '',
     };
 
-    const handleSubmit = async (values: Promotion, { setFieldError }: FormikHelpers<Promotion>) => {
+    const handleSubmit = async (values: Promotion,) => {
 
         // FormData obyektini yaratamiz
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        // Faylni formData ga qo'shamiz
-        if (values.img instanceof File) {
-            formData.append('image', values.img);
-        }
+        // // Faylni formData ga qo'shamiz
+        // if (values.img instanceof File) {
+        //     formData.append('image', values.img);
+        // }
 
         try {
             // Rasmni serverga yuboramiz
-            const imageResponse = await axios.post(`${API_PREFIX}/upload`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            // const imageResponse = await axios.post(`${API_PREFIX}/upload`, formData, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data',
+            //     },
+            // });
 
-            // Rasm URL manzilini olish
-            const imageUrl = imageResponse.data.url;
-            // values.img ni yangilaymiz
-            values.img = imageUrl;
+            // // Rasm URL manzilini olish
+            // const imageUrl = imageResponse.data.url;
+            // // values.img ni yangilaymiz
+            // values.img = imageUrl;
 
             // Promotion ma'lumotlarini serverga yuboramiz
             const data = { ...values, owner: userId };
@@ -69,16 +70,8 @@ const CreatePromotion: React.FC = () => {
                 setStatus('success');
             }
         } catch (error) {
-
-
-            if (error instanceof AxiosError && error.response?.status == 413) {
-                console.log(error);
-                setStatus("form")
-                setFieldError('img', 'Fayl hajmi ruxsat etilganidan katta');
-            } else {
-                console.error('Xatolik:', error);
-                setStatus('fail');
-            }
+            console.error('Xatolik:', error);
+            setStatus('fail');
         }
     };
 
@@ -100,7 +93,7 @@ const CreatePromotion: React.FC = () => {
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}
                     >
-                        {({ isSubmitting, setFieldValue }) => (
+                        {({ isSubmitting }) => (
 
 
                             <Form className="promotion-form">
@@ -112,7 +105,7 @@ const CreatePromotion: React.FC = () => {
                                     <ErrorMessage name="title" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
 
-                                <div className="mb-5">
+                                {/* <div className="mb-5">
                                     <label htmlFor="img" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Загрузить изображение</label>
                                     <div className="block">
                                         <input
@@ -129,7 +122,7 @@ const CreatePromotion: React.FC = () => {
                                     </div>
 
                                     <ErrorMessage name="img" component="div" className="text-red-500 text-sm mt-1" />
-                                </div>
+                                </div> */}
 
                                 <div className="mb-5">
                                     <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Цена</label>

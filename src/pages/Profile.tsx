@@ -41,10 +41,10 @@ const validationSchema = Yup.object({
     web_app: Yup.object({
         gender: Yup.string().required('Пол обязателен для заполнения'),
         role: Yup.string().required('Роль обязательна для заполнения'),
-        youtube: Yup.string().url('Неверный URL'),
+        youtube: Yup.string(),
         category: Yup.string().required('Категория обязательна для заполнения'),
-        instagram: Yup.string().url('Неверный URL'),
-        telegram: Yup.string().url('Неверный URL'),
+        instagram: Yup.string(),
+        telegram: Yup.string(),
         you_tube_price: Yup.number().nullable(),
         instagram_reels_price: Yup.number().nullable(),
         instagram_stories_price: Yup.number().nullable(),

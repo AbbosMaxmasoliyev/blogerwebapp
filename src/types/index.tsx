@@ -48,7 +48,7 @@ export interface Promotion {
     description: string;
     category: string;
     date: string
-    owner: string
+    owner: string | User
     agree: null | string;
     status: boolean;
     __v: number;
