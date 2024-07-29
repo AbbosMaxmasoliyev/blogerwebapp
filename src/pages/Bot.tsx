@@ -192,10 +192,10 @@ const Bot = () => {
     if (status === "loading" || user === "loading") {
         return <Loading />
     }
-    if (user.web_app.gender) {
+    if (user?.web_app.gender) {
         return (<Available />)
     }
-    if (status === "form" && !user.web_app.gender) {
+    if (status === "form" && !user?.web_app.gender) {
         return (
             <section className="bg-gray-900 w-full min-h-screen flex flex-col justify-center items-center">
                 <div className="flex md:w-8/12 w-full flex-col items-center min-h-screen justify-center px-6 py-8 mx-auto lg:py-0">

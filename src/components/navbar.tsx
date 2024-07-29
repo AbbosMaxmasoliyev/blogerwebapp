@@ -15,9 +15,9 @@ const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>();
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+    // const toggleMenu = () => {
+    //     setIsOpen(!isOpen);
+    // };
     const goBack = () => {
         navigate(-1)
     }
@@ -57,25 +57,25 @@ const Navbar: React.FC = () => {
 
         checkInHome()
     }, [location.pathname])
-    const linksForMe = [
-        {
-            title: "Объявление",
-            link: "announce"
-        },
-        {
-            title: "Реклама",
-            link: "advertise"
-        },
-        {
-            title: "Сотрудничество",
-            link: "collaboration"
-        },
-        {
-            title: "Бартер",
-            link: "barter"
-        },
+    // const linksForMe = [
+    //     {
+    //         title: "Объявление",
+    //         link: "announce"
+    //     },
+    //     {
+    //         title: "Реклама",
+    //         link: "advertise"
+    //     },
+    //     {
+    //         title: "Сотрудничество",
+    //         link: "collaboration"
+    //     },
+    //     {
+    //         title: "Бартер",
+    //         link: "barter"
+    //     },
 
-    ]
+    // ]
 
     return (
         <body>
