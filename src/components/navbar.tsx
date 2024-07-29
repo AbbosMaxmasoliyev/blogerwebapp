@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
         <body>
             {
                 !hasBot ?
-                    <header>
+                    <header className='sticky top-0'>
                         <nav className="bg-blue-900 bg-opacity-45 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                                 <span className="flex items-center gap-3">
