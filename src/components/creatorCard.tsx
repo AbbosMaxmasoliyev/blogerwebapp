@@ -40,7 +40,7 @@ const CreaterCard: React.FC<User> = (user) => {
                                     <p className="text-white mt-2">{t("gender")}: {t(user.web_app.gender)}</p>
                                     <p className="text-white">{t("category")}: {t(user.web_app.category)}</p>
                                 </div>
-                                <div className="p-4 border-t border-gray-200">
+                                {/* <div className="p-4 border-t border-gray-200">
                                     <h2 className="text-xl font-bold text-white">{t("socials")}</h2>
                                     <div className="mt-2 flex flex-col gap-2">
                                         <a href={user.web_app.youtube} className="text-blue-500 hover:underline">
@@ -53,7 +53,7 @@ const CreaterCard: React.FC<User> = (user) => {
                                             Telegram
                                         </a>
                                     </div>
-                                </div>
+                                </div> */}
                             </> : null
                     }
                     {/* <div className="p-4 border-t border-gray-200">
