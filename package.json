@@ -12,6 +12,7 @@
     "push:commit": "git add . && git commit -m \"$npm_config_message\" && git push origin main"
   },
   "dependencies": {
+    "@types/react-select": "^5.0.1",
     "axios": "^1.7.2",
     "formik": "^2.4.6",
     "i18next": "^23.12.2",
@@ -22,6 +23,7 @@
     "react-i18next": "^15.0.0",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.25.1",
+    "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
     "vercel": "^35.1.0",
     "yup": "^1.4.0"

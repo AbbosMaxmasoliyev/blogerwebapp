@@ -11,7 +11,7 @@ i18n
         backend: {
             loadPath: `/locales/{{lng}}/{{ns}}.json`, // Tarjima fayllarining yo'li
         },
-        fallbackLng: 'ru',
+        fallbackLng: 'uz',
         interpolation: {
             escapeValue: false, // React allaqachon xss-dan himoyalangan
         }

@@ -4,6 +4,7 @@ import { Link, Outlet, useLocation, useNavigate, useParams } from 'react-router-
 import { User } from '../types';
 import { BiArrowBack } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
+import SelectLanguage from './selectLanguage';
 
 const Navbar: React.FC = () => {
     const { t } = useTranslation()
@@ -72,7 +73,7 @@ const Navbar: React.FC = () => {
                                     </Link>
                                 </span>
                                 <div className="flex items-center lg:order-2">
-                                    <div className='relative '>
+                                    <div className='relative flex gap-2'>
                                         <button onClick={() => setIsOpen(!isOpen)} className='focus:outline-none hover:outline-none hover:border-transparent'>
                                             <span
                                                 className="text-gray-800 dark:text-white font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:ring-0 focus:outline-none"
@@ -86,6 +87,8 @@ const Navbar: React.FC = () => {
                                                 data-popover-target="profile-menu"
                                             />
                                         </button>
+
+                                        <SelectLanguage />
 
                                         <ul
                                             role="menu"
