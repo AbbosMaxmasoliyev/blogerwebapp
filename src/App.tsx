@@ -9,6 +9,7 @@ import Bot from "./pages/Bot"
 import PromotionCategories from './pages/PromotionCategories';
 import PromotionView from './pages/Promotion';
 import Profile from './pages/Profile';
+import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => {
 
@@ -27,6 +28,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route path='user/:userId' element={<Home />} />
