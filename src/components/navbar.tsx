@@ -3,8 +3,10 @@ import { apiGetUserWithUserId } from '../services/userService';
 import { Link, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { User } from '../types';
 import { BiArrowBack } from 'react-icons/bi';
+import { useTranslation } from 'react-i18next';
 
 const Navbar: React.FC = () => {
+    const { t } = useTranslation()
     const [hasBot, setHasBot] = useState<boolean>(false)
     const [inHome, setInHome] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -75,7 +77,7 @@ const Navbar: React.FC = () => {
                                             <span
                                                 className="text-gray-800 dark:text-white font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:ring-0 focus:outline-none"
                                             >
-                                                {user ? user.firstName : "Загрузка"}
+                                                {user ? user.firstName : t("loading")}
                                             </span>
                                             <img
                                                 alt="user avatar"
@@ -112,7 +114,7 @@ const Navbar: React.FC = () => {
                                                     ></path>
                                                 </svg>
                                                 <p className="block font-sans text-sm font-normal leading-normal text-inherit antialiased">
-                                                    Мой Профиль
+                                                    {t("my_profile")}
                                                 </p>
                                             </Link>
                                             <button
@@ -136,7 +138,7 @@ const Navbar: React.FC = () => {
                                                     ></path>
                                                 </svg>
                                                 <p className="block font-sans text-sm font-normal leading-normal text-inherit antialiased">
-                                                    Настройки
+                                                    {t("settings")}
                                                 </p>
                                             </button>
                                             {/* <Link to="/"

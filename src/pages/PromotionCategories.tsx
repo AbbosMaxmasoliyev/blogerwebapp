@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { apiGetCategories } from '../services/userService'
 import { PromotionObject } from '../types'
+import { useTranslation } from 'react-i18next'
 
 interface Category { value: string, label: string }
 
 
 const PromotionCategories = () => {
+    const { t } = useTranslation()
     const { userId, promotion } = useParams()
     const [categories, setCategories] = useState<Category[] | null>(null)
 
@@ -36,7 +38,7 @@ const PromotionCategories = () => {
             link: "barter"
         },
     ]
-    let promotionName = navigateInformation.filter(item => item.link == promotion)[0].title
+    let promotionName = navigateInformation.filter(item => item.link == promotion)[0].link
 
 
     return (
@@ -45,13 +47,13 @@ const PromotionCategories = () => {
 
         <div className='bg-blue-950 bg-opacity-45 min-h-screen flex flex-col items-center py-5 z-0'>
             <div className="w-11/12 flex justify-between items-center">
-                <h1 className="text-xl text-start  my-3 font-semibold">{promotionName}</h1>
+                <h1 className="text-xl text-start  my-3 font-semibold">{t(promotionName)}</h1>
                 {
                     promotion === "collaboration" && <Link
                         to={`/user/${userId}/create/${promotion}`}
                         className="text-white bg-gray-700   focus:ring-4  font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-white hover:text-gray-800 focus:outline-none focus:ring-gray-800"
                     >
-                        Создать
+                        {t("create")}
                     </Link>
                 }
             </div>
@@ -65,9 +67,9 @@ const PromotionCategories = () => {
                             <span className="group-hover:w-full absolute left-0 h-full w-5 border-y border-l border-blue-500 transition-all duration-500 z-0">
                             </span>
 
-                            <p className="group-hover:opacity-0 group-hover:translate-x-[-100%] absolute translate-x-0 transition-all duration-200 z-0">{category.label}</p>
+                            <p className="group-hover:opacity-0 group-hover:translate-x-[-100%] absolute translate-x-0 transition-all duration-200 z-0">{t(category.value)}</p>
 
-                            <span className="group-hover:translate-x-0  group-hover:opacity-100 absolute  translate-x-full opacity-0  transition-all duration-200 z-0">{category.label}
+                            <span className="group-hover:translate-x-0  group-hover:opacity-100 absolute  translate-x-full opacity-0  transition-all duration-200 z-0">{t(category.value)}
                             </span>
 
                             <span

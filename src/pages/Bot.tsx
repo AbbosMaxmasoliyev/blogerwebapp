@@ -7,10 +7,11 @@ import BaseService, { API_PREFIX } from '../services/config';
 import { apiGetUserWithUserId } from '../services/userService';
 import { User } from '../types';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 
 
-export const Loading = () => {
+export const Loading = ({ t }: { t: Function }) => {
     return (
         <div id="loading" className="w-full  flex-col justify-center p-6 ">
             <div role="status" className="flex flex-col items-center justify-center min-h-screen ">
@@ -24,13 +25,13 @@ export const Loading = () => {
                         d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                         fill="currentFill" />
                 </svg>
-                <p className="text-xl font-bold font-awesome text-white text-center">Загрузка...</p>
+                <p className="text-xl font-bold font-awesome text-white text-center">{t("loading")}</p>
             </div>
         </div>
     );
 };
 
-const Success = () => {
+const Success = ({ t }: { t: Function }) => {
     return (
         <div id="success" className="w-full flex justify-center p-6  flex-col items-center  min-h-screen ">
             <div
@@ -40,14 +41,14 @@ const Success = () => {
                     <path
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                 </svg>
-                <p className="text-xl font-bold font-awesome text-white text-center">Выполнено успешно</p>
+                <p className="text-xl font-bold font-awesome text-white text-center">{t("success")}</p>
             </div>
         </div>
     );
 };
 
 
-const Available = () => {
+const Available = ({ t }: { t: Function }) => {
     return (
         <div id="success" className="w-full flex justify-center p-6  flex-col items-center  min-h-screen ">
             <div
@@ -57,13 +58,13 @@ const Available = () => {
                     <path
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                 </svg>
-                <p className="text-xl font-bold font-awesome text-white text-center">Вы зарегистрированы</p>
+                <p className="text-xl font-bold font-awesome text-white text-center">{t("available")}</p>
             </div>
         </div>
     );
 };
 
-export const Error = () => {
+export const Error = ({ t }: { t: Function }) => {
     return (
         <div id="error" className="w-full flex justify-center p-6 min-h-screen">
             <div
@@ -73,7 +74,7 @@ export const Error = () => {
                     <path
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
                 </svg>
-                <p className="text-xl font-bold font-awesome text-white">Неуспешный</p>
+                <p className="text-xl font-bold font-awesome text-white">{t("error")}</p>
             </div>
         </div>
     );
@@ -83,7 +84,7 @@ export const Error = () => {
 
 
 const Bot = () => {
-
+    const { t } = useTranslation()
     const [status, setStatus] = useState("form")
     const [user, setUser] = useState<User | "failed" | "loading">("loading")
     const { userId } = useParams()
@@ -184,16 +185,16 @@ const Bot = () => {
         }
     });
     if (status === "error" || user === "failed") {
-        return (<Error />)
+        return (<Error t={t} />)
     }
     if (status === "success") {
-        return (<Success />)
+        return (<Success t={t} />)
     }
     if (status === "loading" || user === "loading") {
-        return <Loading />
+        return <Loading t={t} />
     }
-    if (user?.web_app.gender) {
-        return (<Available />)
+    if (user.web_app.gender) {
+        return (<Available t={t} />)
     }
     if (status === "form" && !user?.web_app.gender) {
         return (
@@ -215,10 +216,10 @@ const Bot = () => {
                     </a>
                     <div className="rounded-lg shadow border md:mt-0 w-full xl:p-0 bg-gray-800 border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                            <h1 className=" font-bold leading-tight tracking-tight text-2xl text-white">Создать аккаунт</h1>
+                            <h1 className=" font-bold leading-tight tracking-tight text-2xl text-white">{t("create_account")}</h1>
                             <form className="space-y-4 md:space-y-6" onSubmit={formik.handleSubmit}>
                                 <div className="flex justify-start gap-2">
-                                    <p className="block mb-2 text-xl font-medium text-white">Пол:</p>
+                                    <p className="block mb-2 text-xl font-medium text-white">{t("gender")}</p>
                                     <div className="flex gap-3 items-center">
                                         <input
                                             id="male-radio"
@@ -229,7 +230,7 @@ const Bot = () => {
                                             onBlur={formik.handleBlur}
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                        <label htmlFor="male-radio" className="ms-2 text-lg font-medium text-gray-300">Мужчина</label>
+                                        <label htmlFor="male-radio" className="ms-2 text-lg font-medium text-gray-300">{t("male")}</label>
                                     </div>
                                     <div className="flex gap-3 items-center">
                                         <input
@@ -241,13 +242,13 @@ const Bot = () => {
                                             onBlur={formik.handleBlur}
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                        <label htmlFor="female-radio" className="ms-2 text-lg font-medium text-gray-300">Женщина</label>
+                                        <label htmlFor="female-radio" className="ms-2 text-lg font-medium text-gray-300">{t("female")}</label>
                                     </div>
                                 </div>
                                 {formik.touched.gender && formik.errors.gender ? <div className="text-red-500 text-sm">{formik.errors.gender}</div> : null}
 
                                 <div className="flex items-start justify-between flex-col gap-2">
-                                    <label htmlFor="direction" className="block text-xl font-medium text-white">Роль:</label>
+                                    <label htmlFor="direction" className="block text-xl font-medium text-white">{t("role")}:</label>
                                     <div className="flex gap-3 items-center">
                                         <input
                                             id="bloger-radio"
@@ -258,7 +259,7 @@ const Bot = () => {
                                             onBlur={formik.handleBlur}
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                        <label htmlFor="bloger-radio" className="ms-2 text-lg font-medium text-gray-300">Блогер</label>
+                                        <label htmlFor="bloger-radio" className="ms-2 text-lg font-medium text-gray-300">{t("bloger")}</label>
                                     </div>
                                     <div className="flex gap-3 items-center">
                                         <input
@@ -270,7 +271,7 @@ const Bot = () => {
                                             onBlur={formik.handleBlur}
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                        <label htmlFor="freelancer-radio" className="ms-2 text-lg font-medium text-gray-300">Фрилансер</label>
+                                        <label htmlFor="freelancer-radio" className="ms-2 text-lg font-medium text-gray-300">{t("freelancer")}</label>
                                     </div>
                                     <div className="flex gap-3 items-center">
                                         <input
@@ -282,17 +283,17 @@ const Bot = () => {
                                             onBlur={formik.handleBlur}
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                        <label htmlFor="reklama-radio" className="ms-2 text-lg font-medium text-gray-300">Рекламодатель</label>
+                                        <label htmlFor="reklama-radio" className="ms-2 text-lg font-medium text-gray-300">{t("reklama")}</label>
                                     </div>
                                     <div className='flex gap-3 flex-col items-start w-full'>
-                                        <label htmlFor="countries" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Выберите категорию</label>
+                                        <label htmlFor="countries" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">{t("category_select")}</label>
                                         <select
                                             id="category"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                         >
-                                            <option >Выберите категорию</option>
+                                            <option>{t("category_select")}</option>
                                             <option value="sport">Sport</option>
                                             <option value="fitness">Fitness</option>
                                             <option value="it">IT </option>
@@ -309,7 +310,7 @@ const Bot = () => {
                                         type="text"
                                         name="youtube"
                                         id="youtube"
-                                        placeholder="YouTube профиль"
+                                        placeholder={t("url") + "YouTube"}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.youtube}
@@ -326,7 +327,7 @@ const Bot = () => {
                                         type="text"
                                         name="instagram"
                                         id="instagram"
-                                        placeholder="Instagram профиль"
+                                        placeholder={t("url") + "Instagram"}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.instagram}
@@ -343,7 +344,7 @@ const Bot = () => {
                                         type="text"
                                         name="telegram"
                                         id="telegram"
-                                        placeholder="Telegram профиль"
+                                        placeholder={t("url") + "Telegram"}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.telegram}
@@ -353,12 +354,12 @@ const Bot = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="youtube-price" className="block mb-2  font-medium font-sans text-white text-xl">Цена на YouTube:</label>
+                                    <label htmlFor="youtube-price" className="block mb-2  font-medium font-sans text-white text-xl">{t("youtube_price")}:</label>
                                     <input
                                         type="number"
                                         name="you_tube_price"
                                         id="youtube-price"
-                                        placeholder="Цена"
+                                        placeholder={t("price")}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.you_tube_price}
@@ -368,12 +369,12 @@ const Bot = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="instagram-reels-price" className="block mb-2  font-medium font-sans text-white text-xl">Цена на Instagram Reels:</label>
+                                    <label htmlFor="instagram-reels-price" className="block mb-2  font-medium font-sans text-white text-xl">{t("instagram_reels_price")}:</label>
                                     <input
                                         type="number"
                                         name="instagram_reels_price"
                                         id="instagram-reels-price"
-                                        placeholder="Цена"
+                                        placeholder={t("price")}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.instagram_reels_price}
@@ -383,12 +384,12 @@ const Bot = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="instagram-stories-price" className="block mb-2  font-medium font-sans text-white text-xl">Цена на Instagram Stories:</label>
+                                    <label htmlFor="instagram-stories-price" className="block mb-2  font-medium font-sans text-white text-xl">{t("instagram_stories_price")}:</label>
                                     <input
                                         type="number"
                                         name="instagram_stories_price"
                                         id="instagram-stories-price"
-                                        placeholder="Цена"
+                                        placeholder={t("price")}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.instagram_stories_price}
@@ -398,12 +399,12 @@ const Bot = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="instagram-post-price" className="block mb-2  font-medium font-sans text-white text-xl">Цена на Instagram Post:</label>
+                                    <label htmlFor="instagram-post-price" className="block mb-2  font-medium font-sans text-white text-xl">{t("instagram_stories_price")}:</label>
                                     <input
                                         type="number"
                                         name="instagram_post_price"
                                         id="instagram-post-price"
-                                        placeholder="Цена"
+                                        placeholder={t("price")}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.instagram_post_price}
@@ -413,12 +414,12 @@ const Bot = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="telegram-post-price" className="block mb-2  font-medium font-sans text-white text-xl">Цена на Telegram Post:</label>
+                                    <label htmlFor="telegram-post-price" className="block mb-2  font-medium font-sans text-white text-xl">{t("telegram_post_price")}:</label>
                                     <input
                                         type="number"
                                         name="telegram_post_price"
                                         id="telegram-post-price"
-                                        placeholder="Цена"
+                                        placeholder={t("price")}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.telegram_post_price}
@@ -431,7 +432,7 @@ const Bot = () => {
                                     type="submit"
                                     className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700"
                                 >
-                                    Зарегистрироваться
+                                    {t("submit")}
                                 </button>
                             </form>
                         </div>

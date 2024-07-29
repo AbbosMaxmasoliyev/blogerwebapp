@@ -5,6 +5,7 @@ import '../index.css'; // CSS faylini qo'shish
 import { apiGetCategories } from '../services/userService';
 import BaseService from '../services/config';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -18,15 +19,18 @@ interface Promotion {
 }
 
 // Yup valitsiyatsiya sxemasi
-const validationSchema = Yup.object({
-    title: Yup.string().required('Название обязательно'),
-    // img: Yup.mixed().required('Требуется загрузка файла'),
-    price: Yup.number().required('Цена обязательна').positive('Цена должна быть положительной'),
-    description: Yup.string().required('Описание обязательно'),
-    category: Yup.string().required('Категория обязательна'),
-});
 
 const CreatePromotion: React.FC = () => {
+    const { t } = useTranslation()
+    const validationSchema = Yup.object({
+        title: Yup.string().required(t("title") + t("entered")),
+        // img: Yup.mixed().required('Требуется загрузка файла'),
+        price: Yup.number().required(t("price") + t("entered")).positive(t("plus")),
+        description: Yup.string().required(t("description") + t("entered")),
+        category: Yup.string().required(t("category") + t("entered")),
+    });
+
+
     const { promotion, userId } = useParams();
     const [categories, setCategories] = useState<{ value: string, label: string }[] | null>(null);
     const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form");
@@ -77,14 +81,17 @@ const CreatePromotion: React.FC = () => {
 
     useEffect(() => {
         apiGetCategories({ beforeFunction: setCategories });
+
+
     }, []);
 
     return (
         <div className="w-full flex justify-center py-5">
             <div className="max-w-sm w-11/12 mx-auto p-3 rounded-lg shadow">
+
                 {
                     status == "sending" ? <>
-                        <h1>Создание</h1>
+                        <h1>{t("creating")}</h1>
                     </> : null
                 }
                 {
@@ -100,7 +107,7 @@ const CreatePromotion: React.FC = () => {
 
 
                                 <div className="mb-5">
-                                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Название</label>
+                                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("title")}</label>
                                     <Field type="text" id="title" name="title" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
                                     <ErrorMessage name="title" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
@@ -125,23 +132,23 @@ const CreatePromotion: React.FC = () => {
                                 </div> */}
 
                                 <div className="mb-5">
-                                    <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Цена</label>
+                                    <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("price")}</label>
                                     <Field type="number" id="price" name="price" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
                                     <ErrorMessage name="price" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
 
                                 <div className="mb-5">
-                                    <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Описание</label>
+                                    <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("description")}</label>
                                     <Field type="text" id="description" name="description" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
                                     <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
 
                                 <div className="mb-5">
-                                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Выберите категорию</label>
+                                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("category_select")}</label>
                                     <Field as="select" id="category" name="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                                        <option value="">Выберите категорию</option>
+                                        <option value="">{t("category_select")}</option>
                                         {
-                                            categories?.map(category => <option value={category.value} className='capitalize'>{category.label}</option>)
+                                            categories?.map(category => <option value={category.value} className='capitalize'>{t(category.value)}</option>)
                                         }
                                     </Field>
                                     <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
@@ -150,7 +157,7 @@ const CreatePromotion: React.FC = () => {
 
 
                                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>
-                                    Публиковать
+                                    {t("post")}
                                 </button>
                             </Form>
                         )}

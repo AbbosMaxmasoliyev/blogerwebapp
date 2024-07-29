@@ -9,9 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { openNotification } from '../utils/openNotifications'
 import { ToastContainer } from 'react-toastify'
 import CreaterCard from '../components/creatorCard'
+import { useTranslation } from 'react-i18next'
 
 const PromotionView = () => {
     const { promotion, id, userId } = useParams()
+    const { t } = useTranslation()
     const [respPromotion, setPromotion] = useState<Promotion | null | "fail">(null)
     const [agree, setAgree] = useState<"success" | "normal" | "fail">("normal")
     const getPromotion = async () => {
@@ -28,11 +30,11 @@ const PromotionView = () => {
     }, [])
 
     if (!respPromotion) {
-        return <Loading />
+        return <Loading t={t} />
     }
 
     if (respPromotion === "fail") {
-        return <Error />
+        return <Error t={t} />
     }
     console.log(promotion);
     const handleAgreePromotion = async () => {
@@ -75,7 +77,7 @@ const PromotionView = () => {
                     <p className="inline-flex font-medium items-center text-blue-600 hover:underline">
                         $ {respPromotion.price}
                     </p>
-                    <button type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 flex gap-2 items-center mt-3" onClick={handleAgreePromotion} disabled={!(agree == "normal")}>Соглашаться <FiSend /></button>
+                    <button type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 flex gap-2 items-center mt-3" onClick={handleAgreePromotion} disabled={!(agree == "normal")}>{t("agree")} <FiSend /></button>
                 </div>
 
                 {

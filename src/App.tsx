@@ -10,7 +10,7 @@ import PromotionCategories from './pages/PromotionCategories';
 import PromotionView from './pages/Promotion';
 import Profile from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';
-
+import './language/language';
 const App: React.FC = () => {
 
   useEffect(() => {

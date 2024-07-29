@@ -5,6 +5,7 @@ import { apiGetCategories, apiGetRoles, apiGetUserWithUserId, apiUpdateUser } fr
 import { useParams } from 'react-router-dom';
 import { openNotification } from '../utils/openNotifications';
 import { ToastContainer } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 interface WebApp {
     gender?: string;
@@ -59,6 +60,7 @@ interface RoleOrCategory {
 }
 
 const Profile = () => {
+    const { t } = useTranslation()
     const params = useParams();
     const [user, setUser] = useState<UserProps | null>(null);
     const [roles, setRoles] = useState<RoleOrCategory[] | null>(null);
@@ -97,14 +99,14 @@ const Profile = () => {
                     <div className="w-full px-6 pb-8 mt-8 sm:rounded-lg">
 
                         <div className="flex justify-between mb-4  w-full items-center">
-                            <h2 className="text-white text-lg font-bold sm:text-xl">Ваш профиль</h2>
+                            <h2 className="text-white text-lg font-bold sm:text-xl">{t("your_data")}</h2>
                             {
                                 !isEditing ?
                                     <button
                                         onClick={() => setIsEditing(true)}
                                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-[5px] py-[10px] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     >
-                                        Редактировать
+                                        {t("edit")}
                                     </button> : null
                             }
                         </div>
@@ -118,19 +120,19 @@ const Profile = () => {
                                             <div className="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
                                                 <div className="w-full">
                                                     <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                        <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Ваше имя:</strong>
+                                                        <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("your_name")}:</strong>
                                                         <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
                                                             {user.firstName}
                                                         </p>
                                                     </div>
                                                     <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                        <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Ваша фамилия:</strong>
+                                                        <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("your_surname")}:</strong>
                                                         <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
                                                             {user.lastName}
                                                         </p>
                                                     </div>
                                                     <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                        <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Номер телефона:</strong>
+                                                        <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("your_number")}:</strong>
                                                         <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
                                                             {user.phoneNumber}
                                                         </p>
@@ -139,70 +141,70 @@ const Profile = () => {
                                             </div>
                                             <div className="mb-2 sm:mb-6">
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2 ">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Пол:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("gender")}:</strong>
 
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.gender ? user.web_app?.gender === 'male' ? 'Мужской' : 'Женский' : "Недоступно"}
+                                                        {user.web_app?.gender ? user.web_app?.gender === 'male' ? t("male") : t("female") : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Роль:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("role")}:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {roles?.find(role => role.value === user.web_app?.role ? user.web_app?.role : "Недоступно")?.label}
+                                                        {roles?.find(role => role.value === user.web_app?.role ? user.web_app?.role : t("unavailable"))?.label}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Категория:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("category")}:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {categories?.find(category => category.value === user.web_app?.category ? user.web_app?.category : "Недоступно")?.label}
+                                                        {categories?.find(category => category.value === user.web_app?.category ? user.web_app?.category : t("unavailable"))?.label}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Ссылка на YouTube:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("url")} YouTube:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.youtube ? user.web_app?.youtube : "Недоступно"}
+                                                        {user.web_app?.youtube ? user.web_app?.youtube : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Ссылка на Instagram:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("url")} Instagram:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.instagram ? user.web_app?.instagram : "Недоступно"}
+                                                        {user.web_app?.instagram ? user.web_app?.instagram : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Ссылка на Telegram:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("url")} Telegram:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.telegram ? user.web_app?.telegram : "Недоступно"}
+                                                        {user.web_app?.telegram ? user.web_app?.telegram : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Цена за YouTube видео:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("price")} YouTube видео:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.you_tube_price ? user.web_app?.you_tube_price : "Недоступно"}
+                                                        {user.web_app?.you_tube_price ? user.web_app?.you_tube_price : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Цена за Instagram Reels:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("price")} Instagram Reels:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.instagram_reels_price ? user.web_app?.instagram_reels_price : "Недоступно"}
+                                                        {user.web_app?.instagram_reels_price ? user.web_app?.instagram_reels_price : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Цена за Instagram Stories:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("price")} Instagram Stories:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.instagram_stories_price ? user.web_app?.instagram_stories_price : "Недоступно"}
+                                                        {user.web_app?.instagram_stories_price ? user.web_app?.instagram_stories_price : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Цена за Instagram Post:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("price")} Instagram Post:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.instagram_post_price ? user.web_app?.instagram_post_price : "Недоступно"}
+                                                        {user.web_app?.instagram_post_price ? user.web_app?.instagram_post_price : t("unavailable")}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
-                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>Цена за Telegram Post:</strong>
+                                                    <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("telegram_post_price")}:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user.web_app?.telegram_post_price ? user.web_app?.telegram_post_price : "Недоступно"}
+                                                        {user.web_app?.telegram_post_price ? user.web_app?.telegram_post_price : t("unavailable")}
                                                     </p>
                                                 </div>
                                             </div>
@@ -219,27 +221,27 @@ const Profile = () => {
                                                     <div className="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
                                                         <div className="w-full">
                                                             <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                                Ваше имя
+                                                                {t("your_name")}
                                                             </label>
                                                             <Field
                                                                 type="text"
                                                                 id="firstName"
                                                                 name="firstName"
                                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                                placeholder="Ваше имя"
+                                                                placeholder={t("your_name")}
                                                             />
                                                             <ErrorMessage name="firstName" component="div" className="text-red-500 text-sm" />
                                                         </div>
                                                         <div className="w-full">
                                                             <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                                Ваша фамилия
+                                                                {t("your_surname")}
                                                             </label>
                                                             <Field
                                                                 type="text"
                                                                 id="lastName"
                                                                 name="lastName"
                                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                                placeholder="Ваша фамилия"
+                                                                placeholder={t("your_surname")}
                                                             />
                                                             <ErrorMessage name="lastName" component="div" className="text-red-500 text-sm" />
                                                         </div>
@@ -247,7 +249,7 @@ const Profile = () => {
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                            Номер телефона
+                                                            {t("your_number")}
                                                         </label>
                                                         <Field
                                                             type="text"
@@ -255,7 +257,8 @@ const Profile = () => {
                                                             name="phoneNumber"
                                                             disabled
                                                             className="shadow-sm bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light dark:text-slate-400"
-                                                            placeholder="Ваш номер телефона"
+                                                            placeholder={t("your_number")}
+
                                                         />
                                                     </div>
 
@@ -268,27 +271,27 @@ const Profile = () => {
                                                             id="web_app.gender"
                                                             name="web_app.gender"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                            placeholder="Пол"
+                                                            placeholder={t("gender")}
                                                         >
-                                                            <option value="male">Мужской</option>
-                                                            <option value="female">Женский</option>
+                                                            <option value="male">{t("male")}</option>
+                                                            <option value="female">{t("female")}</option>
                                                         </Field>
                                                         <ErrorMessage name="web_app.gender" component="div" className="text-red-500 text-sm" />
                                                     </div>
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.role" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                            Роль
+                                                            {t("role")}
                                                         </label>
                                                         <Field
                                                             as="select"
                                                             id="web_app.role"
                                                             name="web_app.role"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                            placeholder="Роль"
+                                                            placeholder={t("role")}
                                                         >
                                                             {
-                                                                roles?.map(role => <option key={role.value} value={role.value}>{role.label}</option>)
+                                                                roles?.map(role => <option key={role.value} value={role.value}>{t(role.value)}</option>)
                                                             }
                                                         </Field>
                                                         <ErrorMessage name="web_app.role" component="div" className="text-red-500 text-sm" />
@@ -296,17 +299,17 @@ const Profile = () => {
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.category" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                            Категория
+                                                            {t("category")}
                                                         </label>
                                                         <Field
                                                             as="select"
                                                             id="web_app.category"
                                                             name="web_app.category"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                            placeholder="Категория"
+                                                            placeholder={t("category")}
                                                         >
                                                             {
-                                                                categories?.map(category => <option key={category.value} value={category.value}>{category.label}</option>)
+                                                                categories?.map(category => <option key={category.value} value={category.value}>{t(category.value)}</option>)
                                                             }
                                                         </Field>
                                                         <ErrorMessage name="web_app.category" component="div" className="text-red-500 text-sm" />
@@ -314,42 +317,42 @@ const Profile = () => {
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.youtube" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                            Ссылка на YouTube
+                                                            {t("url")} YouTube
                                                         </label>
                                                         <Field
                                                             type="text"
                                                             id="web_app.youtube"
                                                             name="web_app.youtube"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                            placeholder="Ссылка на YouTube"
+                                                            placeholder={t("url") + "YouTube"}
                                                         />
                                                         <ErrorMessage name="web_app.youtube" component="div" className="text-red-500 text-sm" />
                                                     </div>
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.instagram" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                            Ссылка на Instagram
+                                                            {t("url")} Instagram
                                                         </label>
                                                         <Field
                                                             type="text"
                                                             id="web_app.instagram"
                                                             name="web_app.instagram"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                            placeholder="Ссылка на Instagram"
+                                                            placeholder={t("url") + "Instagram"}
                                                         />
                                                         <ErrorMessage name="web_app.instagram" component="div" className="text-red-500 text-sm" />
                                                     </div>
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.telegram" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                            Ссылка на Telegram
+                                                            {t("url")} Telegram
                                                         </label>
                                                         <Field
                                                             type="text"
                                                             id="web_app.telegram"
                                                             name="web_app.telegram"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                            placeholder="Ссылка на Telegram"
+                                                            placeholder={t("url") + "Telegram"}
                                                         />
                                                         <ErrorMessage name="web_app.telegram" component="div" className="text-red-500 text-sm" />
                                                     </div>
@@ -357,27 +360,27 @@ const Profile = () => {
                                                     <div className="flex flex-col sm:flex-row sm:space-x-4 sm:space-y-0">
                                                         <div className="w-full mb-2 sm:mb-6">
                                                             <label htmlFor="web_app.you_tube_price" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                                Цена за YouTube видео
+                                                                {t("youtube_price")}
                                                             </label>
                                                             <Field
                                                                 type="number"
                                                                 id="web_app.you_tube_price"
                                                                 name="web_app.you_tube_price"
                                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                                placeholder="Цена за YouTube видео"
+                                                                placeholder={t("youtube_price")}
                                                             />
                                                             <ErrorMessage name="web_app.you_tube_price" component="div" className="text-red-500 text-sm" />
                                                         </div>
                                                         <div className="w-full mb-2 sm:mb-6">
                                                             <label htmlFor="web_app.instagram_reels_price" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                                Цена за Instagram Reels
+                                                                {t("instagram_reels_price")}
                                                             </label>
                                                             <Field
                                                                 type="number"
                                                                 id="web_app.instagram_reels_price"
                                                                 name="web_app.instagram_reels_price"
                                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                                placeholder="Цена за Instagram Reels"
+                                                                placeholder={t("instagram_reels_price")}
                                                             />
                                                             <ErrorMessage name="web_app.instagram_reels_price" component="div" className="text-red-500 text-sm" />
                                                         </div>
@@ -386,27 +389,28 @@ const Profile = () => {
                                                     <div className="flex flex-col sm:flex-row sm:space-x-4 sm:space-y-0">
                                                         <div className="w-full mb-2 sm:mb-6">
                                                             <label htmlFor="web_app.instagram_stories_price" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                                Цена за Instagram Stories
+                                                                {t("instagram_stories_price")}
                                                             </label>
                                                             <Field
                                                                 type="number"
                                                                 id="web_app.instagram_stories_price"
                                                                 name="web_app.instagram_stories_price"
                                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                                placeholder="Цена за Instagram Stories"
+                                                                placeholder={t("instagram_stories_price")}
                                                             />
                                                             <ErrorMessage name="web_app.instagram_stories_price" component="div" className="text-red-500 text-sm" />
                                                         </div>
                                                         <div className="w-full mb-2 sm:mb-6">
                                                             <label htmlFor="web_app.instagram_post_price" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                                Цена за Instagram Post
+                                                                {t("instagram_post_price")}
+
                                                             </label>
                                                             <Field
                                                                 type="number"
                                                                 id="web_app.instagram_post_price"
                                                                 name="web_app.instagram_post_price"
                                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                                placeholder="Цена за Instagram Post"
+                                                                placeholder={t("instagram_post_price")}
                                                             />
                                                             <ErrorMessage name="web_app.instagram_post_price" component="div" className="text-red-500 text-sm" />
                                                         </div>
@@ -414,14 +418,14 @@ const Profile = () => {
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.telegram_post_price" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                                                            Цена за Telegram Post
+                                                            {t("telegram_post_price")}
                                                         </label>
                                                         <Field
                                                             type="number"
                                                             id="web_app.telegram_post_price"
                                                             name="web_app.telegram_post_price"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                                            placeholder="Цена за Telegram Post"
+                                                            placeholder={t("telegram_post_price")}
                                                         />
                                                         <ErrorMessage name="web_app.telegram_post_price" component="div" className="text-red-500 text-sm" />
                                                     </div>
@@ -431,13 +435,13 @@ const Profile = () => {
                                                             onClick={() => setIsEditing(false)}
                                                             className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300   dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 font-medium rounded-lg text-sm px-5 py-2.5"
                                                         >
-                                                            Отмена
+                                                            {t("cancel")}
                                                         </button>
                                                         <button
                                                             type="submit"
                                                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         >
-                                                            Сохранить
+                                                            {t("save")}
                                                         </button>
                                                     </div>
                                                 </Form>
