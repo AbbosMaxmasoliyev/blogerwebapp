@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
         if (params.userId) {
             setInHome(path.split(params.userId).filter(value => value !== "").length == 2)
         }
-
+        setIsOpen(false)
         setHasBot(path.includes('bot'));
     };
 
@@ -81,8 +81,8 @@ const Navbar: React.FC = () => {
         <body>
             {
                 !hasBot ?
-                    <header className='sticky top-0'>
-                        <nav className="bg-blue-900 bg-opacity-45 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+                    <header className='sticky top-0 z-10'>
+                        <nav className="bg-blue-900  border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                                 <span className="flex items-center gap-3">
                                     {
@@ -123,7 +123,7 @@ const Navbar: React.FC = () => {
                                             role="menu"
                                             data-popover="profile-menu"
                                             data-popover-placement="bottom"
-                                            className={`${isOpen ? "flex" : "hidden"} absolute z-10  min-w-[180px] flex-col gap-2 overflow-auto rounded-md  bg-blue-950  p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none top-14 right-0 w-full md:w-[200px]`}
+                                            className={`${isOpen ? "flex" : "hidden"} bg-blue-950 absolute z-20  min-w-[180px] flex-col gap-2 overflow-auto rounded-md    p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none top-14 right-0 w-full md:w-[200px]`}
                                         >
                                             <Link to={`/user/${params.userId}/my-profile`}
                                                 tabIndex={-1}
