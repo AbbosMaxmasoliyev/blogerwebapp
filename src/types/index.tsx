@@ -35,6 +35,7 @@ export interface User {
     lastName: string;
     phoneNumber: string;
     status: boolean;
+    language?: string
 }
 
 

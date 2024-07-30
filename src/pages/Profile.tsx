@@ -34,6 +34,7 @@ export interface UserProps {
     firstName?: string;
     lastName?: string;
     phoneNumber?: string;
+    language?: string
 }
 
 const validationSchema = Yup.object({

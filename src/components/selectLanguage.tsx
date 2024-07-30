@@ -1,7 +1,9 @@
 // /src/LanguageSelectorForm.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { apiUpdateLanguage } from '../services/userService';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -9,15 +11,22 @@ interface FormValues {
     language: string;
 }
 
-const LanguageSelectorForm: React.FC = () => {
+const LanguageSelectorForm: React.FC<FormValues> = ({ language }) => {
+    const { userId } = useParams()
     const { i18n } = useTranslation()
-    const initialValues: FormValues = { language: i18n.language };
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>, setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void) => {
+    const initialValues: FormValues = { language: language || i18n.language };
+    const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>, setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void) => {
         const value = event.target.value;
-        i18n.changeLanguage(value);
-        setFieldValue("language",value)
-
+        if (userId) {
+            let respUser = await apiUpdateLanguage({ id: userId, data: { language: value } })
+            console.log(respUser);
+            if (respUser.success) {
+                i18n.changeLanguage(value);
+                setFieldValue("language", value)
+            }
+        }
     };
+
 
 
 
@@ -37,6 +46,7 @@ const LanguageSelectorForm: React.FC = () => {
                                 <Field
                                     as="select"
                                     name="language"
+
                                     className="block appearance-none w-full bg-gray-800 border border-gray-700 text-white py-3 px-4  rounded-full leading-tight focus:outline-none focus:bg-gray-700 focus:border-gray-500"
                                     onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleChange(event, setFieldValue)}
                                 >

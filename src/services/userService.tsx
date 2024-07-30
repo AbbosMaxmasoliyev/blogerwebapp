@@ -131,19 +131,47 @@ export const apiGetUser = async ({ beforeFunction }: { beforeFunction: Function 
 
 
 }
-export const apiUpdateUser = async ({ id, beforeFunction, data }: { id: string, beforeFunction: Function, data: UserProps }): Promise<{ success: boolean }> => {
+export const apiUpdateUser = async ({ id, beforeFunction, data }: { id: string, beforeFunction: Function | null, data: UserProps }): Promise<{ success: boolean }> => {
 
     try {
 
         let response = await BaseService.post(`/users/web_app/${id}`, { ...data })
         console.log(response.data);
 
-        beforeFunction()
+        if (beforeFunction) {
+            beforeFunction()
+        }
         return { success: true }
 
 
     } catch (error) {
-        beforeFunction()
+
+        if (beforeFunction) {
+            beforeFunction()
+        }
+
+        return { success: false }
+
+    }
+
+
+
+}
+
+
+export const apiUpdateLanguage = async ({ id, data }: { id: string, data: UserProps }): Promise<{ success: boolean }> => {
+
+    try {
+
+        let response = await BaseService.put(`/users/updateById/${id}`, { ...data })
+        console.log(response.data);
+
+        return { success: true }
+
+
+    } catch (error) {
+
+
 
         return { success: false }
 

@@ -4,11 +4,11 @@ import { apiGetCategories } from '../services/userService'
 import { PromotionObject } from '../types'
 import { useTranslation } from 'react-i18next'
 
-interface Category { value: string, label: string }
+interface Category { value: string, [key: string]: string }
 
 
 const PromotionCategories = () => {
-    const { t } = useTranslation()
+    const { t, i18n: { language } } = useTranslation()
     const { userId, promotion } = useParams()
     const [categories, setCategories] = useState<Category[] | null>(null)
 
@@ -67,9 +67,9 @@ const PromotionCategories = () => {
                             <span className="group-hover:w-full absolute left-0 h-full w-5 border-y border-l border-blue-500 transition-all duration-500 z-0">
                             </span>
 
-                            <p className="group-hover:opacity-0 group-hover:translate-x-[-100%] absolute translate-x-0 transition-all duration-200 z-0">{t(category.value)}</p>
+                            <p className="group-hover:opacity-0 group-hover:translate-x-[-100%] absolute translate-x-0 transition-all duration-200 z-0 text-[12px]">{t(category[language])}</p>
 
-                            <span className="group-hover:translate-x-0  group-hover:opacity-100 absolute  translate-x-full opacity-0  transition-all duration-200 z-0">{t(category.value)}
+                            <span className="group-hover:translate-x-0  group-hover:opacity-100 absolute  translate-x-full opacity-0  transition-all duration-200 z-0 text-[12px]">{t(category[language])}
                             </span>
 
                             <span

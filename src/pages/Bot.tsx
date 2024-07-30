@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { FaYoutube, FaInstagram, FaTelegram } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import BaseService, { API_PREFIX } from '../services/config';
-import { apiGetUserWithUserId } from '../services/userService';
+import { apiGetCategories, apiGetUserWithUserId } from '../services/userService';
 import { User } from '../types';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -84,9 +84,10 @@ export const Error = ({ t }: { t: Function }) => {
 
 
 const Bot = () => {
-    const { t } = useTranslation()
+    const { t, i18n: { language } } = useTranslation()
     const [status, setStatus] = useState("form")
     const [user, setUser] = useState<User | "failed" | "loading">("loading")
+    const [categories, setCategories] = useState<{ value: string, [key: string]: string }[] | null>(null)
     const { userId } = useParams()
 
 
@@ -129,6 +130,7 @@ const Bot = () => {
     };
 
     useEffect(() => {
+        apiGetCategories({ beforeFunction: setCategories });
 
         // Telegram Web App tayyor ekanligini bildirish
         if (window.Telegram?.WebApp) {
@@ -294,9 +296,9 @@ const Bot = () => {
                                             onBlur={formik.handleBlur}
                                         >
                                             <option>{t("category_select")}</option>
-                                            <option value="sport">Sport</option>
-                                            <option value="fitness">Fitness</option>
-                                            <option value="it">IT </option>
+                                            {
+                                                categories?.map(category => <option value={category.value} className='capitalize'>{t(category[language])}</option>)
+                                            }
                                         </select>
                                     </div>
                                 </div>

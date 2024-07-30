@@ -5,6 +5,7 @@ import { User } from '../types';
 import { BiArrowBack } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
 import SelectLanguage from './selectLanguage';
+import { changeLanguage } from 'i18next';
 
 const Navbar: React.FC = () => {
     const { t } = useTranslation()
@@ -49,6 +50,10 @@ const Navbar: React.FC = () => {
         checkInHome()
     }, [location.pathname])
 
+    useEffect(() => {
+        changeLanguage(user?.language)
+    }, [user])
+
     return (
         <body>
             {
@@ -80,15 +85,15 @@ const Navbar: React.FC = () => {
                                             >
                                                 {user ? user.firstName : t("loading")}
                                             </span>
-                                            <img
+                                            {/* <img
                                                 alt="user avatar"
                                                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
                                                 className="relative inline-block h-12 w-12 cursor-pointer rounded-full object-cover object-center"
                                                 data-popover-target="profile-menu"
-                                            />
+                                            /> */}
                                         </button>
 
-                                        <SelectLanguage />
+                                        {user?.language ? <SelectLanguage language={user.language} /> : null}
 
                                         <ul
                                             role="menu"

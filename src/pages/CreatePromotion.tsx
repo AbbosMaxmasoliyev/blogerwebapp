@@ -21,7 +21,7 @@ interface Promotion {
 // Yup valitsiyatsiya sxemasi
 
 const CreatePromotion: React.FC = () => {
-    const { t } = useTranslation()
+    const { t, i18n: { language } } = useTranslation()
     const validationSchema = Yup.object({
         title: Yup.string().required(t("title") + t("entered")),
         // img: Yup.mixed().required('Требуется загрузка файла'),
@@ -32,7 +32,7 @@ const CreatePromotion: React.FC = () => {
 
 
     const { promotion, userId } = useParams();
-    const [categories, setCategories] = useState<{ value: string, label: string }[] | null>(null);
+    const [categories, setCategories] = useState<{ value: string, [key: string]: string }[] | null>(null);
     const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form");
 
     const initialValues: Promotion = {
@@ -68,7 +68,7 @@ const CreatePromotion: React.FC = () => {
 
             // Promotion ma'lumotlarini serverga yuboramiz
             const data = { ...values, owner: userId };
-            const responsePost = await BaseService.post(`/${promotion}/create`, data);
+            const responsePost = await BaseService.post(`/publish/${promotion}/${userId}`, data);
 
             if (responsePost.status === 201) {
                 setStatus('success');
@@ -148,7 +148,7 @@ const CreatePromotion: React.FC = () => {
                                     <Field as="select" id="category" name="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                                         <option value="">{t("category_select")}</option>
                                         {
-                                            categories?.map(category => <option value={category.value} className='capitalize'>{t(category.value)}</option>)
+                                            categories?.map(category => <option value={category.value} className='capitalize'>{t(category[language])}</option>)
                                         }
                                     </Field>
                                     <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
@@ -168,12 +168,12 @@ const CreatePromotion: React.FC = () => {
                         <h1 className='font-bold'>
                             {
                                 status === "success" ? <>
-                                    Создано успешно
+                                    {t("success")}
                                 </> : null
                             }
                             {
                                 status === "fail" ? <>
-                                    Ошибка создания
+                                    {t("error")}
                                 </> : null
                             }
 
