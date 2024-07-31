@@ -1,16 +1,12 @@
-import { useEffect, useState } from "react"
-import user from "../hooks/user"
-import { Promotion, PromotionObject } from "../types"
-import { apiAgreePromotion, apiGetAgreePromotions } from "../services/userService"
+import { PromotionObject } from "../types"
 import { useParams } from "react-router-dom"
-import CardPromotion from "../components/cardPromotion"
 import CardLink from "../components/cardLink"
 import { useTranslation } from "react-i18next"
 
 const Organization = () => {
     const { t } = useTranslation()
 
-    const { userId, promotion } = useParams()
+    const { userId } = useParams()
 
     const navigateInformation: PromotionObject[] = [
         {
