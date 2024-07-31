@@ -21,15 +21,15 @@ const PromotionCard: React.FC<PromotioCardProps> = ({ title, description, price,
                 <p className="text-gray-100 font-bold text-lg">$ {price}</p>
                 <p className="text-gray-400 text-sm">{t(category)}</p>
             </div>
+            <h1 className='text-center font-semibold'>{t("agreed")}</h1>
             {
                 typeof agree != "string" && agree && agree.length ?
 
                     <>
-                        <h1 className='text-center font-semibold'>{t("agree")}</h1>
                         {agree.map(agreeUser => <UserCard name={`${agreeUser.firstName} ${agreeUser.lastName}`} phoneNumber={agreeUser.phoneNumber} web_app={agreeUser.web_app} />)}
                     </>
                     :
-                    <h1>{t("unavailable")}</h1>
+                    <h1 className='px-6 py-4'>{t("unavailable")}</h1>
 
             }
         </div>
