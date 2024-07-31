@@ -27,7 +27,9 @@ const PromotionCard: React.FC<PromotioCardProps> = ({ title, description, price,
                     <>
                         <h1 className='text-center font-semibold'>{t("agree")}</h1>
                         {agree.map(agreeUser => <UserCard name={`${agreeUser.firstName} ${agreeUser.lastName}`} phoneNumber={agreeUser.phoneNumber} web_app={agreeUser.web_app} />)}
-                    </> : <h1>{t("unaviable")}</h1>
+                    </>
+                    :
+                    <h1>{t("unavailable")}</h1>
 
             }
         </div>
