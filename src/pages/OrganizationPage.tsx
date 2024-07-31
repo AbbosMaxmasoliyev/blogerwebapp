@@ -55,8 +55,11 @@ const OrganizationPage = () => {
             </h1>
             <div className="flex flex-col w-full max-w-96">
                 {
-                    promotions?.length ? promotions.map(promotion => <PromotionCard title={promotion.title} category={promotion.category} description={promotion.description} price={promotion.price} agree={promotion.agree} />)
-                        : <h1>{t("unavailable")}</h1>
+                    promotions?.length ? <>
+                        {promotions.map(promotion => <PromotionCard title={promotion.title} category={promotion.category} description={promotion.description} price={promotion.price} agree={promotion.agree} />)
+                        }
+                    </> : <h1>{t("unavailable")}</h1>
+
                 }
             </div>
         </div>

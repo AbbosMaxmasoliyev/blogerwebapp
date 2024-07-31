@@ -22,7 +22,7 @@ const PromotionCard: React.FC<PromotioCardProps> = ({ title, description, price,
                 <p className="text-gray-400 text-sm">{t(category)}</p>
             </div>
             {
-                typeof agree != "string" && agree ?
+                typeof agree != "string" && agree && agree.length ?
 
                     <>
                         <h1 className='text-center font-semibold'>{t("agree")}</h1>
