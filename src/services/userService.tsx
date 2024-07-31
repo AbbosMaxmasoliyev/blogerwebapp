@@ -109,6 +109,40 @@ export const apiAgreePromotion = async ({ id, promotion, promotionId }: Argument
 
 
 
+export const apiGetAgreePromotions = async ({ id, promotion, beforeFunction }: ArgumentId): Promise<{ success: boolean | string }> => {
+
+    try {
+        let response = await BaseService.get(`/${promotion}/my-collaboration/${id}/${promotion}`)
+
+        if (beforeFunction) {
+            beforeFunction(response.data)
+        }
+        console.log(response);
+
+        return { success: true }
+
+
+    } catch (error) {
+        console.log(error);
+        if (beforeFunction) {
+            beforeFunction([])
+        }
+        if (error instanceof AxiosError && error.response?.status == 402) {
+            console.log("ERROR");
+
+            return { success: "Вы ранее дали согласие" }
+        }
+
+        return { success: false }
+
+    }
+
+
+
+}
+
+
+
 export const apiGetUser = async ({ beforeFunction }: { beforeFunction: Function }): Promise<User[] | { success: boolean }> => {
     if (beforeFunction) {
 

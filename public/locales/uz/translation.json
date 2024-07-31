@@ -55,5 +55,20 @@
     "cancel": "Bekor qilish",
     "save": "Saqlash",
     "my_profile": "Mening hisobim",
-    "settings": "Sozlamalar"
+    "settings": "Sozlamalar",
+    "for_house": "Uy uchun",
+    "beauty": "Go'zallik",
+    "food": "Ovqat",
+    "entertainment": "Ko'ngilochar",
+    "content_freelancers": "Kontent (frilanserlar)",
+    "hotels_rest_areas": "Mehmonxonalar \\ Dam olish zonalari",
+    "clothing": "Kiyim-kechak",
+    "sport": "Sport",
+    "technology": "Texnologiyalar",
+    "tourism": "Turizm",
+    "medicine": "Tibbiyot",
+    "charity": "Xayriya",
+    "auto": "Avto",
+    "education": "Ta'lim",
+    "creativity": "Ijod"
 }

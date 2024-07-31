@@ -1,13 +1,21 @@
 import { PromotionObject } from '../types'
 import CardLink from '../components/cardLink'
 import { useParams } from 'react-router-dom'
+import user from '../hooks/user'
+import Organization from './Organization'
+import { useTranslation } from 'react-i18next'
+
 
 const Home = () => {
-
+    const { t } = useTranslation()
 
 
     const { userId } = useParams()
-    console.log(userId);
+    const userData = user()
+
+    if (userData?.web_app.role === "reklama") {
+        return <Organization />
+    }
 
     const navigateInformation: PromotionObject[] = [
         {
@@ -31,15 +39,19 @@ const Home = () => {
             link: "announce"
         },
     ]
-    return (
-        <div className='bg-blue-950 bg-opacity-45 min-h-screen'>
-            <div className="flex flex-col flex-wrap justify-center py-3 gap-3 items-center">
-                {
-                    navigateInformation.map(value => <CardLink {...value} />)
-                }
+
+    if (userData?.web_app.role != "reklama") {
+        return (
+            <div className='bg-blue-950 bg-opacity-45 min-h-screen'>
+                <div className="flex flex-col flex-wrap justify-center py-3 gap-3 items-center">
+                    {
+                        navigateInformation.map(value => <CardLink link={`/user/${userId}/promotion/${value.link}`} description={value.description} title={t(value.link)} />)
+                    }
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+
 }
 
 export default Home

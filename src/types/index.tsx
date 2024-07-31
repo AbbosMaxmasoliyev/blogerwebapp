@@ -7,7 +7,7 @@ export interface CardLinkProps {
 
 
 
-interface WebApp {
+export interface WebApp {
     gender: string;
     role: string;
     youtube: string;
@@ -50,7 +50,7 @@ export interface Promotion {
     category: string;
     date: string
     owner: string | User
-    agree: null | string;
+    agree: null | string | User[];
     status: boolean;
     __v: number;
 }
