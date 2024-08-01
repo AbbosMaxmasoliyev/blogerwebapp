@@ -234,6 +234,7 @@ const Bot = () => {
                                         />
                                         <label htmlFor="male-radio" className="ms-2 text-lg font-medium text-gray-300">{t("male")}</label>
                                     </div>
+
                                     <div className="flex gap-3 items-center">
                                         <input
                                             id="female-radio"
@@ -263,6 +264,9 @@ const Bot = () => {
                                         />
                                         <label htmlFor="bloger-radio" className="ms-2 text-lg font-medium text-gray-300">{t("bloger")}</label>
                                     </div>
+
+
+
                                     <div className="flex gap-3 items-center">
                                         <input
                                             id="freelancer-radio"
@@ -287,6 +291,9 @@ const Bot = () => {
                                         />
                                         <label htmlFor="reklama-radio" className="ms-2 text-lg font-medium text-gray-300">{t("reklama")}</label>
                                     </div>
+                                    {formik.touched.role && formik.errors.role ? <div className="text-red-500 text-sm">{formik.errors.role}</div> : null}
+
+
                                     <div className='flex gap-3 flex-col items-start w-full'>
                                         <label htmlFor="countries" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">{t("category_select")}</label>
                                         <select
