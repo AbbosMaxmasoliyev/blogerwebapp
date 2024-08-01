@@ -10,6 +10,11 @@ declare global {
                     show: () => void;
                     onClick: (callback: () => void) => void;
                 };
+                BackButton: {
+                    setText: (text: string) => void;
+                    show: () => void;
+                    onClick: (callback: () => void) => void;
+                };
                 sendData: (data: string) => void;
                 initDataUnsafe: {
                     user: {
