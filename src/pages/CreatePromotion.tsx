@@ -68,7 +68,7 @@ const CreatePromotion: React.FC = () => {
 
             // Promotion ma'lumotlarini serverga yuboramiz
             const data = { ...values, owner: userId };
-            const responsePost = await BaseService.post(`/publish/${promotion}/${userId}`, data);
+            const responsePost = await BaseService.post(`/create/${promotion}`, data);
 
             if (responsePost.status === 201) {
                 setStatus('success');
