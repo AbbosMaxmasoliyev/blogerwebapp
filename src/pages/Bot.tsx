@@ -302,7 +302,7 @@ const Bot = () => {
                                         </select>
                                     </div>
                                 </div>
-                                {formik.touched.role && formik.errors.role ? <div className="text-red-500 text-sm">{formik.errors.role}</div> : null}
+                                {formik.touched.category && formik.errors.category ? <div className="text-red-500 text-sm">{formik.errors.category}</div> : null}
 
                                 <div>
                                     <label htmlFor="youtube" className="flex items-center mb-2 text-xl font-medium font-sans text-white">

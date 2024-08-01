@@ -18,7 +18,11 @@ const Navbar: React.FC = () => {
     const [user, setUser] = useState<User | null>();
 
     const goBack = () => {
-        navigate(-1)
+        if (window.history.length > 1) {
+            navigate(-1); // Tarixdagi oldingi sahifaga qaytish
+        } else {
+            navigate(`/user/${params.userId}`); // Bosh sahifaga yo'naltirish
+        }
     }
 
     const checkBotInURL = () => {
@@ -48,6 +52,9 @@ const Navbar: React.FC = () => {
     useEffect(() => {
         checkBotInURL()
         checkInHome()
+
+
+        window.Telegram.WebApp.BackButton.onClick(goBack);
     }, [location.pathname])
 
     useEffect(() => {

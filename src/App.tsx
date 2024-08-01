@@ -20,6 +20,8 @@ const App: React.FC = () => {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
       window.Telegram.WebApp.BackButton.show();
+
+
     }
   }, [])
 
