@@ -19,7 +19,7 @@ const App: React.FC = () => {
     if (window.Telegram?.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
-      window.Telegram.WebApp.BackButton.show();
+      // window.Telegram.WebApp.BackButton.show();
 
 
     }
