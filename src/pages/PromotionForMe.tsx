@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Promotion } from '../types'
 import { apiGetCategories } from '../services/userService'
-import CardPromotion from '../components/cardPromotion'
 import PromotionView from './Promotion'
 
 const PromotionForMe = () => {
@@ -35,7 +34,7 @@ const PromotionForMe = () => {
 
 
             {
-                categoryData ? categoryData.map(promotion => <PromotionView />) : null
+                categoryData ? categoryData.map(() => <PromotionView />) : null
             }
         </div>
     )

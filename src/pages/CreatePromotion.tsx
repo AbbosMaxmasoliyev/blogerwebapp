@@ -21,7 +21,7 @@ interface Promotion {
 // Yup valitsiyatsiya sxemasi
 
 const CreatePromotion: React.FC = () => {
-    const { t, i18n: { language } } = useTranslation()
+    const { t } = useTranslation()
     const validationSchema = Yup.object({
         title: Yup.string().required(t("title") + t("entered")),
         example: Yup.string(),

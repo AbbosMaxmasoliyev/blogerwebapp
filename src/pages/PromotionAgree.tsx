@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Promotion, } from '../types'
 import { apiAgreePromotion, } from '../services/userService'
 import ImageWithFallback from '../components/ImageWithFallback'
@@ -8,7 +7,6 @@ import { openNotification } from '../utils/openNotifications'
 import { ToastContainer } from 'react-toastify'
 import CreaterCard from '../components/creatorCard'
 import { useTranslation } from 'react-i18next'
-import { User } from "../types/index"
 
 interface PromotionAgreeWithProps {
     promotion: Promotion, userId: string,

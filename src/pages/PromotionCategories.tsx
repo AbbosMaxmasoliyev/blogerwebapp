@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { apiGetCategories, apiGetPromotionWithId, apiGetPromtions } from '../services/userService'
+import { apiGetCategories, apiGetPromtions } from '../services/userService'
 import { Promotion, PromotionObject } from '../types'
 import { useTranslation } from 'react-i18next'
 import PromotionAgreeWith from './PromotionAgree'
@@ -108,7 +108,7 @@ const PromotionCategories = () => {
                 </div>
                 <div className='grid grid-cols-1 gap-3 w-11/12 '>
                     {
-                        promotions && userId ? promotions.map((promotion, index) => <PromotionAgreeWith promotion={promotion} userId={userId} promotionKey={"collaboration"} />) : <h2>{t("unavailable")}</h2>
+                        promotions && userId ? promotions.map((promotion) => <PromotionAgreeWith promotion={promotion} userId={userId} promotionKey={"collaboration"} />) : <h2>{t("unavailable")}</h2>
                     }
                 </div>
             </div>
