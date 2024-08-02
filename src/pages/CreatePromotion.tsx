@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import '../index.css'; // CSS faylini qo'shish
-import { apiGetCategories } from '../services/userService';
+// import { apiGetCategories } from '../services/userService';
 import BaseService from '../services/config';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -12,10 +12,10 @@ import { useTranslation } from 'react-i18next';
 
 interface Promotion {
     title: string;
-    // img: File | null;
-    price: number;
+    example: string;
+    // price: number;
     description: string;
-    category: string;
+    // category: string;
 }
 
 // Yup valitsiyatsiya sxemasi
@@ -24,23 +24,23 @@ const CreatePromotion: React.FC = () => {
     const { t, i18n: { language } } = useTranslation()
     const validationSchema = Yup.object({
         title: Yup.string().required(t("title") + t("entered")),
-        // img: Yup.mixed().required('Требуется загрузка файла'),
-        price: Yup.number().required(t("price") + t("entered")).positive(t("plus")),
+        example: Yup.string(),
+        // price: Yup.number().required(t("price") + t("entered")).positive(t("plus")),
         description: Yup.string().required(t("description") + t("entered")),
-        category: Yup.string().required(t("category") + t("entered")),
+        // category: Yup.string().required(t("category") + t("entered")),
     });
 
 
     const { promotion, userId } = useParams();
-    const [categories, setCategories] = useState<{ value: string, [key: string]: string }[] | null>(null);
+    // const [categories, setCategories] = useState<{ value: string, [key: string]: string }[] | null>(null);
     const [status, setStatus] = useState<"form" | "success" | "fail" | "sending">("form");
 
     const initialValues: Promotion = {
         title: '',
-        // img: null,
-        price: 0,
+        example: "",
+        // price: 0,
         description: '',
-        category: '',
+        // category: '',
     };
 
     const handleSubmit = async (values: Promotion,) => {
@@ -82,11 +82,11 @@ const CreatePromotion: React.FC = () => {
         window.scrollTo({ top: 0, behavior: "smooth" })
     };
 
-    useEffect(() => {
-        apiGetCategories({ beforeFunction: setCategories });
+    // useEffect(() => {
+    //     apiGetCategories({ beforeFunction: setCategories });
 
 
-    }, []);
+    // }, []);
 
     return (
         <div className="w-full flex justify-center py-5">
@@ -134,19 +134,24 @@ const CreatePromotion: React.FC = () => {
                                     <ErrorMessage name="img" component="div" className="text-red-500 text-sm mt-1" />
                                 </div> */}
 
-                                <div className="mb-5">
+                                {/* <div className="mb-5">
                                     <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("price")}</label>
                                     <Field type="number" id="price" name="price" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
                                     <ErrorMessage name="price" component="div" className="text-red-500 text-sm mt-1" />
-                                </div>
+                                </div> */}
 
                                 <div className="mb-5">
                                     <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("description")}</label>
                                     <Field type="text" id="description" name="description" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
                                     <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
-
                                 <div className="mb-5">
+                                    <label htmlFor="example" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("example")}</label>
+                                    <Field type="text" id="example" name="example" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                                    <ErrorMessage name="example" component="div" className="text-red-500 text-sm mt-1" />
+                                </div>
+
+                                {/* <div className="mb-5">
                                     <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("category_select")}</label>
                                     <Field as="select" id="category" name="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                                         <option value="">{t("category_select")}</option>
@@ -155,7 +160,7 @@ const CreatePromotion: React.FC = () => {
                                         }
                                     </Field>
                                     <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
-                                </div>
+                                </div> */}
 
 
 

@@ -8,7 +8,7 @@ interface PromotioCardProps {
     description: string;
     price: number;
     category: string;
-    agree?: User[] | null | string
+    agree?: User[] | null | string,
 }
 
 const PromotionCard: React.FC<PromotioCardProps> = ({ title, description, price, category, agree }) => {

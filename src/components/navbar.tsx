@@ -40,13 +40,21 @@ const Navbar: React.FC = () => {
     };
 
     useEffect(() => {
-        checkBotInURL()
-        checkInHome()
 
-        console.log(hasBot);
-        if (params.userId) {
-            apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser, })
+        if (location.pathname === "/") {
+            if (window.Telegram.WebApp.initDataUnsafe.user.id) {
+                navigate(`/user/${window.Telegram.WebApp.initDataUnsafe.user.id}`)
+            }
+        } else {
+            checkBotInURL()
+            checkInHome()
+
+            console.log(hasBot);
+            if (params.userId) {
+                apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser, })
+            }
         }
+
     }, [])
 
     useEffect(() => {

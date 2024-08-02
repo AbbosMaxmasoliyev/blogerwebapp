@@ -80,6 +80,31 @@ export const apiGetPromotionWithId = async ({ id, beforeFunction, promotion }: A
 
 }
 
+export const apiGetPromtions = async ({ beforeFunction, promotion }: ArgumentId): Promise<User | { success: boolean }> => {
+    if (beforeFunction) {
+
+        try {
+
+            let response = await BaseService.get(`/${promotion}/all`)
+            console.log(response);
+            beforeFunction(response.data)
+            return { success: true }
+
+
+        } catch (error) {
+            beforeFunction(false)
+            console.log(error);
+
+            return { success: false }
+
+        }
+    } else {
+        return { success: false }
+    }
+
+
+}
+
 
 export const apiAgreePromotion = async ({ id, promotion, promotionId }: ArgumentId): Promise<{ success: boolean | string }> => {
 
