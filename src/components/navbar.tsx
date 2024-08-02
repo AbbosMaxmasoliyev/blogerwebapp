@@ -43,7 +43,10 @@ const Navbar: React.FC = () => {
 
         if (location.pathname === "/") {
             if (window.Telegram.WebApp.initDataUnsafe.user.id) {
-                alert(window.Telegram.WebApp.initDataUnsafe.user.id)
+                let userId = window.Telegram.WebApp.initDataUnsafe.user.id
+                
+                apiGetUserWithUserId({ id: userId, beforeFunction: setUser, })
+
                 navigate(`/user/${window.Telegram.WebApp.initDataUnsafe.user.id}`)
             }
         } else {
