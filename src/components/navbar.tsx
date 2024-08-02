@@ -50,6 +50,10 @@ const Navbar: React.FC = () => {
                     navigate(`/user/${window.Telegram.WebApp.initDataUnsafe.user.id}`)
                 }
 
+            } else {
+                console.log("Siz Brauzer orqali kiryapsiz");
+                
+                navigate(`/user/${params.userId}`)
             }
         } else {
             checkBotInURL()
