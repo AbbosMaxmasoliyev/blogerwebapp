@@ -22,6 +22,10 @@ export const apiGetUserWithUserId = async ({ id, beforeFunction }: ArgumentId): 
         }
         return responseUser.data
     } catch (error) {
+        if (error instanceof AxiosError && error.response?.status === 404) {
+            alert("Iltimos qayta ro'yxatdan o'ting")
+            window.Telegram.WebApp.close()
+        }
         return { success: false }
     }
 
