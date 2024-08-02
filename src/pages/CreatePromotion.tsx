@@ -77,6 +77,9 @@ const CreatePromotion: React.FC = () => {
             console.error('Xatolik:', error);
             setStatus('fail');
         }
+
+
+        window.scrollTo({ top: 0, behavior: "smooth" })
     };
 
     useEffect(() => {
