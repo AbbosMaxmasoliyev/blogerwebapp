@@ -110,6 +110,32 @@ export const apiGetPromtions = async ({ beforeFunction, promotion }: ArgumentId)
 }
 
 
+export const apiGetMyPromotions = async ({ beforeFunction, promotion, id }: ArgumentId): Promise<User | { success: boolean }> => {
+    if (beforeFunction) {
+
+        try {
+
+            let response = await BaseService.get(`/my-promotion?promotion=${promotion}&userId=${id}`)
+            console.log(response);
+            beforeFunction(response.data)
+            return { success: true }
+
+
+        } catch (error) {
+            beforeFunction(false)
+            console.log(error);
+
+            return { success: false }
+
+        }
+    } else {
+        return { success: false }
+    }
+
+
+}
+
+
 export const apiAgreePromotion = async ({ id, promotion, promotionId }: ArgumentId): Promise<{ success: boolean | string }> => {
 
     try {
@@ -194,6 +220,32 @@ export const apiGetUser = async ({ beforeFunction }: { beforeFunction: Function 
 
 
 }
+
+
+export const apiDeleteUser = async ({ beforeFunction, id }: { beforeFunction: Function | null, id: string }): Promise<{ success: boolean }> => {
+
+    try {
+
+        let responseUser = await BaseService.delete(`/users/${id}`)
+        if (beforeFunction) {
+            beforeFunction(responseUser.data)
+        }
+
+        return { success: true }
+    } catch (error) {
+
+        if (beforeFunction) {
+            beforeFunction(null)
+        }
+
+        return { success: false }
+
+    }
+
+
+}
+
+
 export const apiUpdateUser = async ({ id, beforeFunction, data }: { id: string, beforeFunction: Function | null, data: UserProps }): Promise<{ success: boolean }> => {
 
     try {

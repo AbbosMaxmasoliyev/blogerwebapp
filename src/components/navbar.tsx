@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { apiGetUserWithUserId } from '../services/userService';
+import { apiDeleteUser, apiGetUserWithUserId } from '../services/userService';
 import { Link, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { User } from '../types';
 import { BiArrowBack } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
 import SelectLanguage from './selectLanguage';
 import { changeLanguage } from 'i18next';
+import { openNotification } from '../utils/openNotifications';
 
 const Navbar: React.FC = () => {
     const { t } = useTranslation()
@@ -52,7 +53,7 @@ const Navbar: React.FC = () => {
 
             } else {
                 console.log("Siz Brauzer orqali kiryapsiz");
-                
+
                 navigate(`/user/${params.userId}`)
             }
         } else {
@@ -78,7 +79,19 @@ const Navbar: React.FC = () => {
     useEffect(() => {
         changeLanguage(user?.language)
     }, [user])
+    const reset = async () => {
+        if (params.userId) {
 
+            let resetResponse = await apiDeleteUser({ id: params.userId, beforeFunction: null })
+            if (resetResponse.success) {
+                openNotification({ type: "success", message: "Reseted" })
+            }
+
+            if (window.Telegram.WebApp) {
+                window.Telegram.WebApp.close()
+            }
+        }
+    }
     return (
         <body>
             {
@@ -172,6 +185,17 @@ const Navbar: React.FC = () => {
                                                 </svg>
                                                 <p className="block font-sans text-sm font-normal leading-normal text-inherit antialiased">
                                                     {t("settings")}
+                                                </p>
+                                            </button>
+                                            <button
+                                                tabIndex={-1}
+                                                role="menuitem"
+                                                onClick={reset}
+                                                className="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                                            >
+
+                                                <p className="block font-sans text-sm font-normal leading-normal text-inherit antialiased">
+                                                    Reset
                                                 </p>
                                             </button>
                                             {/* <Link to="/"
