@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import SelectLanguage from './selectLanguage';
 import { changeLanguage } from 'i18next';
 import { openNotification } from '../utils/openNotifications';
+import Footer from './footer';
 
 const Navbar: React.FC = () => {
     const { t } = useTranslation()
@@ -230,6 +231,7 @@ const Navbar: React.FC = () => {
                     </header> : null
             }
             <Outlet />
+            <Footer />
         </body>
     );
 };
