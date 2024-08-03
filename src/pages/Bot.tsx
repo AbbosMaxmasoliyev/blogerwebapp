@@ -87,7 +87,12 @@ const Bot = () => {
     const { t, i18n: { language } } = useTranslation()
     const [status, setStatus] = useState("form")
     const [user, setUser] = useState<User | "failed" | "loading">("loading")
-    const [categories, setCategories] = useState<{ value: string, [key: string]: string }[] | null>(null)
+    const [allCategories, setCategories] = useState<{
+        all: { value: string, [key: string]: string }[],
+        length: {
+            [key: string]: number
+        }
+    } | null>(null)
     const { userId } = useParams()
 
 
@@ -186,6 +191,10 @@ const Bot = () => {
 
         }
     });
+
+    console.log(allCategories?.all);
+
+
     if (status === "error" || user === "failed") {
         return (<Error t={t} />)
     }
@@ -304,8 +313,10 @@ const Bot = () => {
                                         >
                                             <option>{t("category_select")}</option>
                                             {
-                                                categories?.map(category => <option value={category.value} className='capitalize'>{t(category[language])}</option>)
-                                            }
+                                                allCategories?.all?.map(category =>
+
+                                                    <option value={category.value} className='capitalize'>{t(category[language])}</option>
+                                                )}
                                         </select>
                                     </div>
                                 </div>

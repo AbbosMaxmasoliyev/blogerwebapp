@@ -298,19 +298,21 @@ export const apiUpdateLanguage = async ({ id, data }: { id: string, data: UserPr
 
 
 
-export const apiGetCategories = async ({ beforeFunction }: { beforeFunction: Function }): Promise<{ success: boolean }> => {
+export const apiGetCategories = async ({ beforeFunction, promotion }: { beforeFunction: Function, promotion?: string }): Promise<{ success: boolean }> => {
     if (beforeFunction) {
 
         try {
 
-            let responseCategories = await BaseService.get(`/categories`)
+            let responseCategories = await BaseService.get(`/categories${promotion ? `?promotion=${promotion}` : ""}`)
             console.log(responseCategories.data);
 
-            beforeFunction(responseCategories.data)
+            beforeFunction({ all: responseCategories.data.categories, length: responseCategories.data.length })
             return { success: true }
 
 
         } catch (error) {
+            console.log(error);
+            
             beforeFunction(null)
 
             return { success: false }
