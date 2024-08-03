@@ -47,7 +47,7 @@ const PromotionAgreeWith: React.FC<PromotionAgreeWithProps> = ({ promotion, user
 
         }
     }
-    if (typeof promotion.owner != "string" && userId != promotion.owner?.userId) {
+    if (typeof promotion.owner != "string") {
         return (
             <div className='flex justify-center py-3'>
 
