@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { apiGetCategories, apiGetRoles, apiGetUserWithUserId, apiUpdateUser } from '../services/userService';
+import { apiGetRoles, apiGetUserWithUserId, apiUpdateUser } from '../services/userService';
 import { useParams } from 'react-router-dom';
 import { openNotification } from '../utils/openNotifications';
 import { ToastContainer } from 'react-toastify';
