@@ -65,7 +65,7 @@ const Profile = () => {
     const params = useParams();
     const [user, setUser] = useState<UserProps | null>(null);
     const [roles, setRoles] = useState<RoleOrCategory[] | null>(null);
-    const [categories, setCategories] = useState<RoleOrCategory[] | []>([]);
+    // const [categories, setCategories] = useState<RoleOrCategory[] | []>([]);
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const getUser = () => {
@@ -90,7 +90,7 @@ const Profile = () => {
     useEffect(() => {
         getUser();
         apiGetRoles({ beforeFunction: setRoles });
-        apiGetCategories({ beforeFunction: setCategories });
+        // apiGetCategories({ beforeFunction: setCategories });
     }, []);
 
     return (
