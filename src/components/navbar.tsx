@@ -94,7 +94,7 @@ const Navbar: React.FC = () => {
         }
     }
     return (
-        <body>
+        <body className='min-h-screen'>
             {
                 !hasBot ?
                     <header className='sticky top-0 z-10'>
@@ -230,8 +230,12 @@ const Navbar: React.FC = () => {
                         </nav>
                     </header> : null
             }
-            <Outlet />
-            <Footer />
+            <div className="block">
+                <Outlet />
+            </div>
+            <div className="block">
+                <Footer />
+            </div>
         </body>
     );
 };
