@@ -302,7 +302,7 @@ const Profile = () => {
                                                         <label htmlFor="web_app.category" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
                                                             {t("category")}
                                                         </label>
-                                                        <Field
+                                                        {/* <Field
                                                             as="select"
                                                             id="web_app.category"
                                                             name="web_app.category"
@@ -312,7 +312,7 @@ const Profile = () => {
                                                             {
                                                                 categories?.map(category => <option key={category.value} value={category.value}>{t(category.value)}</option>)
                                                             }
-                                                        </Field>
+                                                        </Field> */}
                                                         <ErrorMessage name="web_app.category" component="div" className="text-red-500 text-sm" />
                                                     </div>
 
