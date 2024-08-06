@@ -65,7 +65,7 @@ const Profile = () => {
     const params = useParams();
     const [user, setUser] = useState<UserProps | null>(null);
     const [roles, setRoles] = useState<RoleOrCategory[] | null>(null);
-    const [categories, setCategories] = useState<RoleOrCategory[] | null>(null);
+    const [categories, setCategories] = useState<RoleOrCategory[] | []>([]);
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const getUser = () => {
@@ -157,7 +157,7 @@ const Profile = () => {
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
                                                     <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("category")}:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {categories?.find(category => category.value === user.web_app?.category ? user.web_app?.category : t("unavailable"))?.label}
+                                                        {/* {categories.find(category => category.value === user.web_app?.category ? user.web_app?.category : t("unavailable"))?.label} */}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
