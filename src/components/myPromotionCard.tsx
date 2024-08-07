@@ -18,7 +18,10 @@ const PromotionCard: React.FC<PromotioCardProps> = ({ title, description, price,
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2 text-white">{title}</div>
                 <p className="text-gray-300 text-base">{description}</p>
-                <p className="text-gray-100 font-bold text-lg">$ {price}</p>
+                {
+                    price ?
+                        <p className="text-gray-100 font-bold text-lg">$ {price}</p> : null
+                }
                 <p className="text-gray-400 text-sm">{t(category)}</p>
             </div>
             <h1 className='text-center font-semibold'>{t("agreed")}</h1>

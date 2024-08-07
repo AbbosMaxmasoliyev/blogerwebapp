@@ -13,6 +13,7 @@ import ScrollToTop from './components/ScrollToTop';
 import './language/language';
 // import OrganizationPage from './pages/OrganizationPage';
 import MyPromotion from './pages/MyPromotions';
+import MyPromotionCategories from './pages/MyPromotionCategories';
 const App: React.FC = () => {
 
   useEffect(() => {
@@ -42,7 +43,8 @@ const App: React.FC = () => {
           <Route path='/user/:userId/promotion/:promotion' element={<PromotionCategories />} />
           <Route path='/user/:userId/promotion/:promotion/category/:category' element={<Promotions />} />
           <Route path='/user/:userId/promotion/:promotion/view/:id' element={<PromotionView />} />
-          <Route path='/user/:userId/promotion/:promotion/my-promotion' element={<MyPromotion  />} />
+          <Route path='/user/:userId/my-promotion-categories' element={<MyPromotionCategories />} />
+          <Route path='/user/:userId/promotion/:promotion/my-promotion' element={<MyPromotion />} />
           <Route path='/user/:userId/waiting' element={<Waiting />} />
           <Route path='/user/:userId/my-profile' element={<Profile />} />
           <Route path='/user/:userId/bot' element={<Bot />} />

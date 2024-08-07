@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import SelectLanguage from './selectLanguage';
 import { changeLanguage } from 'i18next';
 import { openNotification } from '../utils/openNotifications';
+import { GrDocumentUser } from "react-icons/gr";
 import Footer from './footer';
 
 const Navbar: React.FC = () => {
@@ -164,7 +165,8 @@ const Navbar: React.FC = () => {
                                                     {t("my_profile")}
                                                 </p>
                                             </Link>
-                                            <button
+                                            <Link
+                                                to={`/user/${params.userId}/my-promotion-categories`}
                                                 tabIndex={-1}
                                                 role="menuitem"
                                                 className="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
@@ -178,16 +180,13 @@ const Navbar: React.FC = () => {
                                                     aria-hidden="true"
                                                     className="h-4 w-4"
                                                 >
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.005-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.369-.491l1.217.456c.355.133.75.072 1.075-.124.074-.044.147-.087.221-.127.331-.183.581-.495.644-.869l.213-1.28zm2.446 12.31a3.75 3.75 0 100-7.501 3.75 3.75 0 000 7.5z"
-                                                    ></path>
+                                                    <GrDocumentUser />
+
                                                 </svg>
                                                 <p className="block font-sans text-sm font-normal leading-normal text-inherit antialiased">
-                                                    {t("settings")}
+                                                    {t("my_promotions")}
                                                 </p>
-                                            </button>
+                                            </Link>
                                             <button
                                                 tabIndex={-1}
                                                 role="menuitem"
