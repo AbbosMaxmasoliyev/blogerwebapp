@@ -9,7 +9,7 @@ interface ImageWithFallbackProps {
 
 const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({ src, fallbackSrc, alt }) => {
     return (
-        <div className="p-2 ">
+        <div className="h-52 overflow-hidden rounded-2xl  ">
             <div
                 className="w-full h-full  rounded-2xl overflow-hidden"
                 style={{ backgroundImage: `url(${fallbackSrc})` }}
