@@ -31,7 +31,7 @@ const MyPromotionCategories = () => {
     ]
     return (
         <div
-            className="flex flex-col gap-3 items-center"
+            className="flex flex-col gap-3 items-center my-5"
         >
             {
                 navigateInformation.map((information) => <CardLink title={t(information.link)} description="" link={`/user/${userId}/promotion/${information.link}/my-promotion`} />)
