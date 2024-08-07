@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { FaYoutube, FaInstagram, FaTelegram } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import BaseService, { API_PREFIX } from '../services/config';
-import { apiGetCategories, apiGetUserWithUserId } from '../services/userService';
+import { apiGetUserWithUserId } from '../services/userService';
 import { User } from '../types';
 import axios from 'axios';
 import allCategories from "../utils/category.json"
