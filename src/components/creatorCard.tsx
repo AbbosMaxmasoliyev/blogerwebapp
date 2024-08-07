@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { User } from '../types';
 import { useTranslation } from 'react-i18next';
+import { CgChevronDoubleDown } from 'react-icons/cg';
 
 const CreaterCard: React.FC<User> = (user) => {
     const { t } = useTranslation()
     const [more, setMore] = useState<boolean>(false)
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center ">
             {user ? (
-                <div className=" shadow-lg  overflow-hidden w-full max-w-md">
+                <div className="   overflow-hidden w-full max-w-md transition-all duration-75">
                     <div className=" flex flex-col justify-between items-start  px-4 py-4">
                         <p className='self-start'>{t("owner")}</p>
                         {/* <img
@@ -16,8 +17,11 @@ const CreaterCard: React.FC<User> = (user) => {
                             alt={`${user.firstName} ${user.lastName}`}
                             className="w-32 h-32 rounded-full border-4 border-white"
                         /> */}
-                        <h1 className="text-white text-2xl  cursor-pointer" onClick={() => setMore(!more)}>
-                            {user.firstName} {user.lastName}
+                        <h1 className="text-white text-2xl  cursor-pointer flex justify-between items-center w-full" onClick={() => setMore(!more)}>
+                            <span>
+                                {user.firstName} {user.lastName}
+                            </span>
+                            <CgChevronDoubleDown />
                         </h1>
                         {/* <button
 

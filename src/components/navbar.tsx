@@ -94,7 +94,7 @@ const Navbar: React.FC = () => {
         }
     }
     return (
-        <body className='min-h-screen'>
+        <body className='min-h-screen flex flex-col justify-between bg-[#6d5af8] font-mon'>
             {
                 !hasBot ?
                     <header className='sticky top-0 z-10'>
@@ -233,9 +233,12 @@ const Navbar: React.FC = () => {
             <div className="block">
                 <Outlet />
             </div>
-            <div className="block">
-                <Footer />
-            </div>
+            {
+                !hasBot ? <div className="block">
+                    <Footer />
+                </div> : null
+            }
+
         </body>
     );
 };

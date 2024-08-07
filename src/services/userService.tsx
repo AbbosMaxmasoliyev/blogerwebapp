@@ -312,7 +312,35 @@ export const apiGetCategories = async ({ beforeFunction, promotion }: { beforeFu
 
         } catch (error) {
             console.log(error);
-            
+
+            beforeFunction(null)
+
+            return { success: false }
+
+        }
+    } else {
+        return { success: false }
+    }
+
+
+}
+
+
+export const apiGetCategoriesNBusiness = async ({ beforeFunction, promotion }: { beforeFunction: Function, promotion?: string }): Promise<{ success: boolean }> => {
+    if (beforeFunction) {
+
+        try {
+
+            let responseCategories = await BaseService.get(`/categories-business${promotion ? `?promotion=${promotion}` : ""}`)
+            console.log(responseCategories.data);
+
+            beforeFunction({ all: responseCategories.data.categories, length: responseCategories.data.length })
+            return { success: true }
+
+
+        } catch (error) {
+            console.log(error);
+
             beforeFunction(null)
 
             return { success: false }

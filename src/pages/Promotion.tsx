@@ -62,12 +62,12 @@ const PromotionView = () => {
     }
 
     return (
-        <div className='flex justify-center py-3'>
+        <div className='flex justify-center py-3 rounded-2xl'>
 
 
             <div className="max-w-sm w-full  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-max">
 
-                {respPromotion.img && promotion != "collaboration" ? <div className="h-52">
+                {respPromotion.img && promotion != "collaboration" ? <div className="h-52 ">
                     <ImageWithFallback src={respPromotion.img} alt={respPromotion.title} fallbackSrc='https://picsum.photos/350/250' />
                 </div> : null}
                 <div className="p-3"> <a href="#">

@@ -14,7 +14,7 @@ interface PromotioCardProps {
 const PromotionCard: React.FC<PromotioCardProps> = ({ title, description, price, category, agree }) => {
     const { t } = useTranslation()
     return (
-        <div className="rounded overflow-hidden shadow-lg bg-gray-800  w-full ">
+        <div className="rounded-lg overflow-hidden shadow-lg   w-full bg-[#402E7A] my-2">
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2 text-white">{title}</div>
                 <p className="text-gray-300 text-base">{description}</p>

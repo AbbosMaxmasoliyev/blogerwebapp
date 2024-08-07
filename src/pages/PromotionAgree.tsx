@@ -49,25 +49,24 @@ const PromotionAgreeWith: React.FC<PromotionAgreeWithProps> = ({ promotion, user
     }
     if (typeof promotion.owner != "string") {
         return (
-            <div className='flex justify-center py-3'>
+            <div className='flex justify-center py-2   '>
 
 
-                <div className="max-w-sm w-full  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-max">
+                <div className="max-w-sm w-full  shadow-2xl rounded-3xl  dark:bg-[#196EEE] h-max p-2">
 
                     {promotion.img ? <div className="h-52">
                         <ImageWithFallback src={promotion.img} alt={promotion.title} fallbackSrc='https://picsum.photos/350/250' />
                     </div> : null}
-                    <div className="p-3"> <a href="#">
+                    <div className="p-3">
                         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{promotion.title}</h5>
-                    </a>
-                        <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">{promotion.description}</p>
+                        <p className="mb-3 font-normal text-gray-500 dark:text-white">{promotion.description}</p>
                         {/* <p className="inline-flex font-medium items-center text-blue-600 hover:underline">
                             $ {promotion.price}
                         </p> */}
 
                         {
                             userId != promotion.owner?.userId ?
-                                <button type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 flex gap-2 items-center mt-3" onClick={handleAgreePromotion} >{t("agree")} <FiSend /></button> : null
+                                <button type="button" className="text-[#4C3BCF]   font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#F3F8FE]   dark:hover:bg-[#F3F8FE]  flex gap-2 items-center mt-3" onClick={handleAgreePromotion} >{t("agree")} <FiSend /></button> : null
                         }
                     </div>
 

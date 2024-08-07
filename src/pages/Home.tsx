@@ -42,7 +42,7 @@ const Home = () => {
 
     if (userData?.web_app.role != "reklama") {
         return (
-            <div className='bg-blue-950 bg-opacity-45 min-h-screen'>
+            <div className=' min-h-screen '>
                 <div className="flex flex-col flex-wrap justify-center py-3 gap-3 items-center">
                     {
                         navigateInformation.map(value => <CardLink link={`/user/${userId}/promotion/${value.link}`} description={value.description} title={t(value.link)} />)

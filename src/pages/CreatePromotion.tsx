@@ -6,7 +6,7 @@ import '../index.css'; // CSS faylini qo'shish
 import BaseService from '../services/config';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
+import allCategories from "../utils/category.json"
 
 
 
@@ -21,7 +21,7 @@ interface Promotion {
 // Yup valitsiyatsiya sxemasi
 
 const CreatePromotion: React.FC = () => {
-    const { t } = useTranslation()
+    const { t, i18n: { language } } = useTranslation()
     const validationSchema = Yup.object({
         title: Yup.string().required(t("title") + t("entered")),
         example: Yup.string(),
@@ -89,8 +89,8 @@ const CreatePromotion: React.FC = () => {
     // }, []);
 
     return (
-        <div className="w-full flex justify-center py-5">
-            <div className="max-w-sm w-11/12 mx-auto p-3 rounded-lg shadow">
+        <div className="w-full flex justify-center py-5 ">
+            <div className="max-w-sm w-11/12 mx-auto p-3 rounded-lg shadow bg-[#1924ee]">
 
                 {
                     status == "sending" ? <>
@@ -106,7 +106,7 @@ const CreatePromotion: React.FC = () => {
                         {({ isSubmitting }) => (
 
 
-                            <Form className="promotion-form">
+                            <Form className="promotion-form ">
 
 
                                 <div className="mb-5">
@@ -151,16 +151,16 @@ const CreatePromotion: React.FC = () => {
                                     <ErrorMessage name="example" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
 
-                                {/* <div className="mb-5">
+                                <div className="mb-5">
                                     <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("category_select")}</label>
                                     <Field as="select" id="category" name="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                                         <option value="">{t("category_select")}</option>
                                         {
-                                            categories?.map(category => <option value={category.value} className='capitalize'>{t(category[language])}</option>)
+                                            allCategories.bloger?.map(category => <option value={category.value} className='capitalize'>{t(category[language === "uz" || language === "ru" ? language : "ru"])}</option>)
                                         }
                                     </Field>
                                     <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
-                                </div> */}
+                                </div>
 
 
 

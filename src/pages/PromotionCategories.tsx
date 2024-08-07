@@ -67,31 +67,29 @@ const PromotionCategories = () => {
                         </Link>
                     }
                 </div>
-                <div className='flex flex-wrap gap-3 w-11/12 justify-between'>
+                <div className='flex flex-wrap gap-3 w-11/12 justify-between font-mont font-bold'>
                     {
                         categories?.all ? categories.all?.map(category => <Link
                             to={`/user/${userId}/promotion/${promotion}/category/${category.value}`}
-                            className='bg-blue-950 px-1 block min-w-[130px]   ring-0 focus:ring-0 active:ring-0 line-clamp-1'
+                            className='bg-blue-950 px-1 block min-w-[130px]   ring-0 focus:ring-0 active:ring-0 line-clamp rounded-xl'
                         >
-                            <div className="group z-0  p-5 cursor-pointer relative text-xl font-normal border-0 flex items-center justify-center bg-transparenttext-red-500  h-auto   w-full   overflow-hidden    transition-all duration-100 truncate text-ellipsis ">
-                                <span className="group-hover:w-full absolute left-0 h-full w-5 border-y border-l border-blue-500 transition-all duration-500 z-0">
-                                </span>
+                            <div className="group z-0   p-5 cursor-pointer relative text-xl font-normal border-0 flex items-center justify-center bg-transparenttext-red-500  h-auto   w-full   overflow-hidden    transition-all duration-100 truncate text-ellipsis ">
 
-                                <p className="group-hover:opacity-0 group-hover:translate-x-[-100%] absolute translate-x-0 transition-all duration-200 z-0 text-[12px] truncate text-ellipsis w-[80%] text-center">{t(category[language])} ({categories.length[category.value] || "0"})</p>
 
-                                <span className="group-hover:translate-x-0  group-hover:opacity-100 absolute  translate-x-full opacity-0 truncate text-ellipsis w-[80%] text-center  transition-all duration-200 z-0 text-[12px]">{t(category[language])}({categories.length[category.value] || "0"})
-                                </span>
+                                <p className="group-hover:opacity-0 group-hover:translate-x-[-100%] absolute translate-x-0 transition-all duration-200 z-0 text-[12px] truncate text-ellipsis w-[80%] text-center flex justify-center">
+                                    <i className='max-w-[80px] truncate  block'>{t(category[language])}</i> ({categories.length[category.value] || "0"})</p>
 
-                                <span
-                                    className="group-hover:w-full absolute right-0 h-full w-5  border-y border-r  border-blue-500 transition-all duration-500 z-0 ">
-                                </span>
+                                <p className="group-hover:translate-x-0  group-hover:opacity-100 absolute  translate-x-full opacity-0 truncate text-ellipsis w-[80%] text-center flex justify-center  transition-all duration-200 z-0 text-[12px]"><i className='max-w-[80px] truncate '>{t(category[language])}</i>({categories.length[category.value] || "0"})
+                                </p>
+
+
                             </div>
                         </Link>) : null
                     }
                 </div>
                 <div className='grid grid-cols-1 gap-3 w-11/12 '>
                     {
-                        promotions && userId ? promotions.map((promotion) => <PromotionAgreeWith promotion={promotion} userId={userId} promotionKey={"collaboration"} />) : <h2>{t("unavailable")}</h2>
+                        promotions && userId && typeof promotion === "string" ? promotions.map((promotionItem) => <PromotionAgreeWith promotion={promotionItem} userId={userId} promotionKey={promotion} />) : <h2>{t("unavailable")}</h2>
                     }
                 </div>
             </div>

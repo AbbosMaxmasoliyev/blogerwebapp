@@ -34,7 +34,7 @@ const CardPromotion: React.FC<PromotionProps> = ({ promotion, userId, promotionT
     return (
 
 
-        <Link to={`/user/${userId}/promotion/${promotionType}/view/${promotion._id}`} className="w-11/12 bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
+        <Link to={`/user/${userId}/promotion/${promotionType}/view/${promotion._id}`} className="w-11/12 bg-white border border-gray-200 rounded-lg  shadow dark:bg-[#402E7A] dark:border-gray-700">
             {promotionType != "collaboration" ?
                 <div className="w-full h-[250px]">
                     <ImageWithFallback
