@@ -14,7 +14,7 @@ const MyPromotion = () => {
             <h1>404</h1>
         </div>
     }
-    const myPromotions = promotions("collaboration")
+    const myPromotions = promotions(promotion)
 
     useEffect(() => {
         console.log(myPromotions);
