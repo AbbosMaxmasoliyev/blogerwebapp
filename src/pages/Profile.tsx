@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { openNotification } from '../utils/openNotifications';
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import allCategories from "../utils/category.json"
+
 
 interface WebApp {
     gender?: string;
@@ -65,12 +67,14 @@ const Profile = () => {
     const params = useParams();
     const [user, setUser] = useState<UserProps | null>(null);
     const [roles, setRoles] = useState<RoleOrCategory[] | null>(null);
-    // const [categories, setCategories] = useState<RoleOrCategory[] | []>([]);
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const getUser = () => {
         apiGetUserWithUserId({ id: params.userId, beforeFunction: setUser });
     };
+
+
+    let role: "bloger" | "freelancer" | "reklama" = typeof user?.web_app?.role == "string" && (user?.web_app?.role === "bloger" || user?.web_app?.role === "freelancer" || user?.web_app?.role === "reklama") ? user.web_app.role : "bloger"
 
     const handleSubmit = async (values: UserProps) => {
         if (params.userId) {
@@ -157,7 +161,7 @@ const Profile = () => {
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
                                                     <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("category")}:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {/* {categories.find(category => category.value === user.web_app?.category ? user.web_app?.category : t("unavailable"))?.label} */}
+                                                        {user?.web_app?.category}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
@@ -280,7 +284,7 @@ const Profile = () => {
                                                         <ErrorMessage name="web_app.gender" component="div" className="text-red-500 text-sm" />
                                                     </div>
 
-                                                    <div className="mb-2 sm:mb-6">
+                                                    {/* <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.role" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
                                                             {t("role")}
                                                         </label>
@@ -296,23 +300,29 @@ const Profile = () => {
                                                             }
                                                         </Field>
                                                         <ErrorMessage name="web_app.role" component="div" className="text-red-500 text-sm" />
-                                                    </div>
+                                                    </div> */}
 
                                                     <div className="mb-2 sm:mb-6">
                                                         <label htmlFor="web_app.category" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
                                                             {t("category")}
                                                         </label>
-                                                        {/* <Field
+                                                        <Field
                                                             as="select"
                                                             id="web_app.category"
                                                             name="web_app.category"
                                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                                                             placeholder={t("category")}
                                                         >
+
                                                             {
-                                                                categories?.map(category => <option key={category.value} value={category.value}>{t(category.value)}</option>)
+
+                                                                allCategories[role].map(category => {
+                                                                    console.log(category);
+
+                                                                    return <option key={category.value} value={category.value}>{category["uz"]}</option>
+                                                                })
                                                             }
-                                                        </Field> */}
+                                                        </Field>
                                                         <ErrorMessage name="web_app.category" component="div" className="text-red-500 text-sm" />
                                                     </div>
 
