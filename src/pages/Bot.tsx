@@ -9,6 +9,7 @@ import { User } from '../types';
 import axios from 'axios';
 import allCategories from "../utils/category.json"
 import { useTranslation } from 'react-i18next';
+import { MultiSelect } from 'primereact/multiselect';
 
 
 
@@ -84,13 +85,24 @@ export const Error = ({ t }: { t: Function }) => {
 
 
 
+
+
+
 const Bot = () => {
     const inputRef = useRef<HTMLSelectElement | null>(null);
     const { t, i18n: { language } } = useTranslation()
     const [status, setStatus] = useState("form")
     const [user, setUser] = useState<User | "failed" | "loading">("loading")
-    const [category, setCategory] = useState<"bloger" | "reklama" | "freelancer" | null>(null)
-
+    const [role, setRole] = useState<"bloger" | "reklama" | "freelancer" | "">("")
+    const [categories, setCategories] = useState<{ name: string, code: string }[] | [{}]>([{}])
+    const [selectedCategories, setSelectedCategories] = useState(null);
+    const cities = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
     const { userId } = useParams()
 
 
@@ -156,7 +168,7 @@ const Bot = () => {
             gender: '',
             role: '',
             youtube: '',
-            category: '',
+            category: "",
             instagram: '',
             telegram: '',
             you_tube_price: '',
@@ -168,9 +180,10 @@ const Bot = () => {
         validationSchema: Yup.object({
             gender: Yup.string().required('Пол обязателен'),
             role: Yup.string().required('Роль обязательна'),
-            category: Yup.string().min(3).required('Категория обязательна'),
+            category: Yup.string().required('Category обязательна'),
+
             youtube: Yup.string(),
-            instagram: Yup.string(),
+            instagram: Yup.string().required("Instagram обязательна"),
             telegram: Yup.string(),
             you_tube_price: Yup.number().positive('Цена должна быть положительной'),
             instagram_reels_price: Yup.number().positive('Цена должна быть положительной'),
@@ -178,9 +191,15 @@ const Bot = () => {
             instagram_post_price: Yup.number().positive('Цена должна быть положительной'),
             telegram_post_price: Yup.number().positive('Цена должна быть положительной')
         }),
-        onSubmit: async (values) => {
+        onSubmit: async (values, errors) => {
+            console.log(errors);
+
+            console.log(values);
+
             setStatus("loading")
-            let response = await BaseService.post(`/users/web/${userId}`, { ...values, action: 'web' })
+
+
+            let response = await BaseService.post(`/users/web/${userId}`, { ...values, category: values.category.split(","), action: 'web' })
             if (response.status === 200) {
                 setStatus("success")
                 setTimeout(() => {
@@ -193,14 +212,7 @@ const Bot = () => {
 
     });
 
-    useEffect(() => {
 
-        if (inputRef.current) {
-            inputRef.current.value = t("category_select")
-        }
-
-
-    }, [category]);
 
     if (status === "error" || user === "failed") {
         return (<Error t={t} />)
@@ -217,12 +229,47 @@ const Bot = () => {
 
 
     const hanldeChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-        formik.setFieldValue("role", e.currentTarget.value)
-        if (e.target.value === "bloger" || e.target.value === "freelancer" || e.target.value === "reklama") {
+        if (typeof e.currentTarget.value === "string" && (e.currentTarget.value == "bloger" || e.currentTarget.value == "reklama" || e.currentTarget.value == "freelancer")) {
 
-            setCategory(e.target.value)
+            let role: "bloger" | "reklama" | "freelancer" | "" = e.currentTarget.value
+            console.log({ role });
+
+            formik.setFieldValue("role", role)
+            console.log(user);
+
+            if (user?.language == "ru" || user?.language == "uz") {
+                let innerLanguage: "ru" | "uz" = user.language
+
+                console.log(allCategories[role].map(value => {
+                    return { name: value[innerLanguage], code: value.value }
+                }));
+
+                setCategories(allCategories[role].map(value => {
+                    return { name: value[innerLanguage], code: value.value }
+                }))
+            }
+            setRole("bloger")
         }
     }
+
+
+    // useEffect(() => {
+
+    //     if (inputRef.current) {
+    //         inputRef.current.value = t("category_select")
+    //     }
+
+    //     if (role && (language == "uz" || language == "ru")) {
+    //         console.log(allCategories[role].map(value => {
+    //             return { name: value[language], code: value.value }
+    //         }));
+
+    //         setCategories(allCategories[role].map(value => {
+    //             return { name: value[language], code: value.value }
+    //         }))
+    //     }
+
+    // }, []);
 
 
     if (status === "form" && !user?.web_app.gender) {
@@ -322,7 +369,7 @@ const Bot = () => {
 
 
                                     <div className='flex gap-3 flex-col items-start w-full'>
-                                        <label htmlFor="countries" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white font-mont">{t("category_select")}</label>
+                                        {/* <label htmlFor="countries" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white font-mont">{t("category_select")}</label>
                                         <select
                                             id="category"
                                             ref={inputRef}
@@ -332,12 +379,22 @@ const Bot = () => {
                                         >
                                             <option className='font-mont'>{t("category_select")}</option>
                                             {
-                                                category && typeof language == "string" && (language == "uz" || language == "ru") ? allCategories[category].map(categoryItem =>
-                                                    <option value={categoryItem.value} className='capitalize font-mont'>{t(categoryItem[language])}</option>
-                                                ) : null
+                                                // category &&
+                                                language == "uz" || language == "ru" || language == "en" &&
+                                                allCategories.bloger.map(categoryItem =>
+                                                    <option value={categoryItem.value} className='capitalize font-mont'>{t(categoryItem.ru)}</option>
+                                                )
+
                                             }
 
-                                        </select>
+                                        </select> */}
+
+                                        <MultiSelect value={selectedCategories} onChange={(e) => {
+                                            setSelectedCategories(e.value)
+                                            formik.setFieldValue("category", e.value?.map((city: { name: string, code: string }) => city.code).join(","))
+                                        }
+                                        } options={categories} optionLabel="name"
+                                            filter placeholder="Select Cities" maxSelectedLabels={3} className="w-full md:w-20rem" />
                                     </div>
                                 </div>
                                 {formik.touched.category && formik.errors.category ? <div className="text-red-500 text-sm font-mont">{formik.errors.category}</div> : null}

@@ -14,6 +14,10 @@ import './language/language';
 // import OrganizationPage from './pages/OrganizationPage';
 import MyPromotion from './pages/MyPromotions';
 import MyPromotionCategories from './pages/MyPromotionCategories';
+
+
+import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
+import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 const App: React.FC = () => {
 
   useEffect(() => {
@@ -36,20 +40,23 @@ const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route path='user/:userId' element={<Home />} />
-          <Route path='/user/:userId/create/:promotion' element={<CreatePromotion />} />
-          <Route path='/user/:userId/promotion/:promotion' element={<PromotionCategories />} />
-          <Route path='/user/:userId/promotion/:promotion/category/:category' element={<Promotions />} />
-          <Route path='/user/:userId/promotion/:promotion/view/:id' element={<PromotionView />} />
-          <Route path='/user/:userId/my-promotion-categories' element={<MyPromotionCategories />} />
-          <Route path='/user/:userId/promotion/:promotion/my-promotion' element={<MyPromotion />} />
-          <Route path='/user/:userId/waiting' element={<Waiting />} />
-          <Route path='/user/:userId/my-profile' element={<Profile />} />
-          <Route path='/user/:userId/bot' element={<Bot />} />
-        </Route>
-      </Routes>
+      <PrimeReactProvider>
+
+        <Routes>
+          <Route path="/" element={<Navbar />}>
+            <Route path='user/:userId' element={<Home />} />
+            <Route path='/user/:userId/create/:promotion' element={<CreatePromotion />} />
+            <Route path='/user/:userId/promotion/:promotion' element={<PromotionCategories />} />
+            <Route path='/user/:userId/promotion/:promotion/category/:category' element={<Promotions />} />
+            <Route path='/user/:userId/promotion/:promotion/view/:id' element={<PromotionView />} />
+            <Route path='/user/:userId/my-promotion-categories' element={<MyPromotionCategories />} />
+            <Route path='/user/:userId/promotion/:promotion/my-promotion' element={<MyPromotion />} />
+            <Route path='/user/:userId/waiting' element={<Waiting />} />
+            <Route path='/user/:userId/my-profile' element={<Profile />} />
+            <Route path='/user/:userId/bot' element={<Bot />} />
+          </Route>
+        </Routes>
+      </PrimeReactProvider>
     </Router>
   );
 };
