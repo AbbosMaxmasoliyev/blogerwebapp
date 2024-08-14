@@ -36,13 +36,13 @@ const CreaterCard: React.FC<User> = (user) => {
                         more ?
                             <>
                                 <div className='pl-4'>
-                                    <p className="text-blue-200 mt-2">{user.phoneNumber}</p>
-                                    <p className="text-blue-200">{user.web_app.role}</p>
+                                    <p className="text-blue-200 mt-2">{user?.phoneNumber}</p>
+                                    <p className="text-blue-200">{user?.web_app?.role}</p>
                                 </div>
                                 <div className="p-4">
                                     <h2 className="text-xl font-bold text-white">{t("about")}</h2>
-                                    <p className="text-white mt-2">{t("gender")}: {t(user.web_app.gender)}</p>
-                                    <p className="text-white">{t("category")}: {t(user.web_app.category)}</p>
+                                    <p className="text-white mt-2">{t("gender")}: {t(user?.web_app?.gender)}</p>
+                                    <p className="text-white">{t("category")}: {t(user?.web_app?.category)}</p>
                                 </div>
                                 {/* <div className="p-4 border-t border-gray-200">
                                     <h2 className="text-xl font-bold text-white">{t("socials")}</h2>
@@ -72,7 +72,7 @@ const CreaterCard: React.FC<User> = (user) => {
                     </div> */}
                 </div>
             ) : (
-                <p>Loading...</p>
+                <p>{t("unavaible")}</p>
             )}
         </div>
     );

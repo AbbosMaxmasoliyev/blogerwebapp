@@ -15,8 +15,6 @@ interface PromotionAgreeWithProps {
 
 
 const PromotionAgreeWith: React.FC<PromotionAgreeWithProps> = ({ promotion, userId, promotionKey }) => {
-    console.log(userId);
-
     const { t } = useTranslation()
 
 
@@ -71,7 +69,7 @@ const PromotionAgreeWith: React.FC<PromotionAgreeWithProps> = ({ promotion, user
                     </div>
 
                     {
-                        typeof promotion.owner != "string" ? <CreaterCard {...promotion.owner} /> : null
+                        promotionKey != "advertise" && promotion.owner && typeof promotion.owner != "string" ? <CreaterCard {...promotion.owner} /> : null
                     }
 
                 </div>
