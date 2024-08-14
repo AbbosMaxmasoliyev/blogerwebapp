@@ -81,7 +81,7 @@ const PromotionView = () => {
                 </div>
 
                 {
-                    typeof respPromotion.owner != "string" ? <CreaterCard {...respPromotion.owner} /> : null
+                    respPromotion.owner && typeof respPromotion.owner != "string" ? <CreaterCard {...respPromotion.owner} /> : null
                 }
 
             </div>
