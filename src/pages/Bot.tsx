@@ -92,7 +92,7 @@ const Bot = () => {
     const { t } = useTranslation()
     const [status, setStatus] = useState("form")
     const [user, setUser] = useState<User | "failed" | "loading">("loading")
-    const [categories, setCategories] = useState<{ name: string, code: string }[] | [{}]>([{}])
+    const [categories, setCategories] = useState<{ name: string, code: string }[] | []>([])
     const [selectedCategories, setSelectedCategories] = useState(null);
 
     const { userId } = useParams()
@@ -229,17 +229,16 @@ const Bot = () => {
             formik.setFieldValue("role", role)
             console.log(user);
 
-            if (user?.language == "ru" || user?.language == "uz") {
-                let innerLanguage: "ru" | "uz" = user.language
 
-                console.log(allCategories[role].map(value => {
-                    return { name: value[innerLanguage], code: value.value }
-                }));
+            console.log(allCategories[role].map(value => {
+                return { name: value["ru"], code: value.value }
+            }));
 
-                setCategories(allCategories[role].map(value => {
-                    return { name: value[innerLanguage], code: value.value }
-                }))
-            }
+            setCategories(allCategories[role].map(value => {
+                return { name: value["ru"], code: value.value }
+            }))
+            console.log(categories);
+
         }
     }
 
