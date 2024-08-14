@@ -48,6 +48,7 @@ const Promotions = () => {
 
 
                 <div className="flex justify-center flex-col items-center gap-3 w-full">
+
                     {
                         (promotions != null && typeof promotions != "boolean") && promotions.map(promotionItem => <CardPromotion promotion={promotionItem} promotionType={promotion} userId={userId} />)
                     }

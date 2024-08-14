@@ -31,23 +31,24 @@ const LanguageSelectorForm: React.FC<FormValues> = ({ language }) => {
 
 
     return (
-        <div className="flex items-center justify-center bg-blue-950 rounded-full text-white">
+        <div className="flex items-center justify-center bg-blue-950 rounded-full text-white ">
             <div className="w-full max-w-xs">
                 <Formik
                     initialValues={initialValues}
                     onSubmit={values => {
                         console.log(values);
                     }}
+                    clasName={"h-full border"}
                 >
                     {({ setFieldValue }) => (
                         <Form className="bg-blue-950  rounded-full">
-                            <div className="">
+                            <div className="h-full">
 
                                 <Field
                                     as="select"
                                     name="language"
 
-                                    className="block appearance-none w-full bg-gray-800 border border-gray-700 text-white py-3 px-4  rounded-full leading-tight focus:outline-none focus:bg-gray-700 focus:border-gray-500"
+                                    className="block appearance-none h-full w-full bg-gray-800 border border-gray-700 text-white py-1 px-4  rounded-full leading-tight focus:outline-none focus:bg-gray-700 focus:border-gray-500"
                                     onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleChange(event, setFieldValue)}
                                 >
                                     <option className='bg-gray-800 text-gray-200' value="uz">O'zbek</option>

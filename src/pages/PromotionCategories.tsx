@@ -58,6 +58,7 @@ const PromotionCategories = () => {
             <div className='bg-blue-950 bg-opacity-45 min-h-screen flex flex-col items-center py-5 z-0'>
                 <div className="w-11/12 flex justify-between items-center">
                     <h1 className="text-xl text-start  my-3 font-semibold">{t(promotionName)}</h1>
+                 
                     {
                         promotion === "collaboration" && <Link
                             to={`/user/${userId}/create/${promotion}`}
