@@ -89,20 +89,12 @@ export const Error = ({ t }: { t: Function }) => {
 
 
 const Bot = () => {
-    const inputRef = useRef<HTMLSelectElement | null>(null);
-    const { t, i18n: { language } } = useTranslation()
+    const { t } = useTranslation()
     const [status, setStatus] = useState("form")
     const [user, setUser] = useState<User | "failed" | "loading">("loading")
-    const [role, setRole] = useState<"bloger" | "reklama" | "freelancer" | "">("")
     const [categories, setCategories] = useState<{ name: string, code: string }[] | [{}]>([{}])
     const [selectedCategories, setSelectedCategories] = useState(null);
-    const cities = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ];
+
     const { userId } = useParams()
 
 
@@ -248,7 +240,6 @@ const Bot = () => {
                     return { name: value[innerLanguage], code: value.value }
                 }))
             }
-            setRole("bloger")
         }
     }
 
