@@ -23,6 +23,7 @@ export interface WebApp {
 }
 
 export interface User {
+    active?: boolean
     web_app: WebApp;
     _id: string;
     userId: string;

@@ -17,7 +17,7 @@ interface UserCardProps {
     web_app?: WebApp
 }
 
-const UserCard: React.FC<UserCardProps> = ({ name, phoneNumber, web_app }) => {
+const UserCard: React.FC<UserCardProps> = ({ name = "", phoneNumber = "", web_app }) => {
     const { t } = useTranslation()
     const category = web_app?.category ? web_app.category : "other"
     const role = web_app?.role ? web_app.role : "other"

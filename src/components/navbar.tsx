@@ -85,6 +85,8 @@ const Navbar: React.FC = () => {
         if (params.userId) {
 
             let resetResponse = await apiDeleteUser({ id: params.userId, beforeFunction: null })
+            console.log(resetResponse);
+            
             if (resetResponse.success) {
                 openNotification({ type: "success", message: "Reseted" })
             }

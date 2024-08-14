@@ -29,7 +29,15 @@ const PromotionCard: React.FC<PromotioCardProps> = ({ title, description, price,
                 typeof agree != "string" && agree && agree.length ?
 
                     <>
-                        {agree.map(agreeUser => <UserCard name={`${agreeUser.firstName} ${agreeUser.lastName}`} phoneNumber={agreeUser.phoneNumber} web_app={agreeUser.web_app} />)}
+                        {agree.map(agreeUser => {
+                            console.log(agreeUser);
+                            
+                            if (agreeUser.status) {
+                                return <UserCard name={`${agreeUser.firstName} ${agreeUser.lastName}`} phoneNumber={agreeUser.phoneNumber} web_app={agreeUser.web_app} />
+                            } else {
+                                return <p className='px-6 py-4'>Ushbu user aktiv emas</p>
+                            }
+                        })}
                     </>
                     :
                     <h1 className='px-6 py-4'>{t("unavailable")}</h1>

@@ -227,13 +227,16 @@ export const apiDeleteUser = async ({ beforeFunction, id }: { beforeFunction: Fu
     try {
 
         let responseUser = await BaseService.delete(`/users/${id}`)
+        console.log(responseUser);
+        
         if (beforeFunction) {
             beforeFunction(responseUser.data)
         }
 
         return { success: true }
     } catch (error) {
-
+        console.log(error);
+        
         if (beforeFunction) {
             beforeFunction(null)
         }
