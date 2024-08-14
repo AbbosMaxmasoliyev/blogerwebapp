@@ -16,7 +16,7 @@ import MyPromotion from './pages/MyPromotions';
 import MyPromotionCategories from './pages/MyPromotionCategories';
 
 
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
+import { PrimeReactProvider } from 'primereact/api';
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 const App: React.FC = () => {
 
