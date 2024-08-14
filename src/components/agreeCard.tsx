@@ -1,6 +1,7 @@
 import React from 'react';
 import { WebApp } from '../types';
 import { useTranslation } from 'react-i18next';
+import CustomLink from './customLink';
 
 interface UserCardProps {
     _id?: string;
@@ -32,8 +33,15 @@ const UserCard: React.FC<UserCardProps> = ({ name = "", phoneNumber = "", web_ap
 
                     <p className="text-gray-300 text-base">{t(role)}</p>
                 </div>
-                <div className='flex  justify-between'>
-                    <p className="text-gray-300 text-base">{phoneNumber}</p>
+                <div className='flex  justify-between flex-col truncate w-6/12 text-ellipsis'>
+                    <CustomLink link={`https://t.me/${phoneNumber}`}>
+                        <p className="text-gray-300 text-base">{phoneNumber}</p>
+                    </CustomLink>
+                    {
+                        web_app?.instagram ? <CustomLink link={`https://instagram/${web_app?.instagram}`}>
+                            <p className="text-gray-300 text-base text-ellipsis truncate">Instagram: {web_app?.instagram}</p>
+                        </CustomLink> : null
+                    }
 
                     <p className="text-gray-300 text-base">{t(gender)}</p>
                 </div>
