@@ -365,8 +365,13 @@ const Bot = () => {
                                             setSelectedCategories(e.value)
                                             formik.setFieldValue("category", e.value?.map((city: { name: string, code: string }) => city.code).join(","))
                                         }
-                                        } options={categories} optionLabel="name"
-                                            filter placeholder={t("category_select")} maxSelectedLabels={3} className="w-full md:w-20rem" />
+                                        }
+                                            options={categories}
+                                            optionLabel="name"
+                                            placeholder={t("category_select")}
+                                            maxSelectedLabels={3}
+                                            className="w-full md:w-20rem"
+                                        />
                                     </div>
                                 </div>
                                 {formik.touched.category && formik.errors.category ? <div className="text-red-500 text-sm font-mont">{formik.errors.category}</div> : null}
