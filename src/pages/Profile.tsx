@@ -13,7 +13,7 @@ interface WebApp {
     gender?: string;
     role?: string;
     youtube?: string;
-    category?: string;
+    category?: string[];
     instagram?: string;
     telegram?: string;
     you_tube_price?: number | 0;
@@ -63,7 +63,8 @@ interface RoleOrCategory {
 }
 
 const Profile = () => {
-    const { t } = useTranslation()
+    const { t, i18n: { language } } = useTranslation()
+    const setterLanguage = typeof language === "string" && (language === "uz" || language === "ru")
     const params = useParams();
     const [user, setUser] = useState<UserProps | null>(null);
     const [roles, setRoles] = useState<RoleOrCategory[] | null>(null);
@@ -161,7 +162,9 @@ const Profile = () => {
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">
                                                     <strong className='text-xl font-semibold leading-none tracking-tight text-gray-900  dark:text-white'>{t("category")}:</strong>
                                                     <p className='mb-6 text-lg font-normal text-gray-500 lg:text-xl  dark:text-gray-400'>
-                                                        {user?.web_app?.category}
+                                                        {user?.web_app?.category?.map(category => {
+                                                            return <p>{t(`category_object.${category}`)}</p>
+                                                        })}
                                                     </p>
                                                 </div>
                                                 <div className="text-sm font-medium text-indigo-900 dark:text-white flex flex-col my-2">

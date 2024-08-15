@@ -359,32 +359,14 @@ const Bot = () => {
 
 
                                     <div className='flex gap-3 flex-col items-start w-full'>
-                                        {/* <label htmlFor="countries" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white font-mont">{t("category_select")}</label>
-                                        <select
-                                            id="category"
-                                            ref={inputRef}
-                                            className="bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-b-blue-900 block w-full p-2.5 dark:bg-gray-700 dark:border-b-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-b-blue-500"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                        >
-                                            <option className='font-mont'>{t("category_select")}</option>
-                                            {
-                                                // category &&
-                                                language == "uz" || language == "ru" || language == "en" &&
-                                                allCategories.bloger.map(categoryItem =>
-                                                    <option value={categoryItem.value} className='capitalize font-mont'>{t(categoryItem.ru)}</option>
-                                                )
 
-                                            }
-
-                                        </select> */}
 
                                         <MultiSelect value={selectedCategories} onChange={(e) => {
                                             setSelectedCategories(e.value)
                                             formik.setFieldValue("category", e.value?.map((city: { name: string, code: string }) => city.code).join(","))
                                         }
                                         } options={categories} optionLabel="name"
-                                            filter placeholder="Select Cities" maxSelectedLabels={3} className="w-full md:w-20rem" />
+                                            filter placeholder={t("category_select")} maxSelectedLabels={3} className="w-full md:w-20rem" />
                                     </div>
                                 </div>
                                 {formik.touched.category && formik.errors.category ? <div className="text-red-500 text-sm font-mont">{formik.errors.category}</div> : null}
