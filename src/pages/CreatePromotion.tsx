@@ -31,7 +31,7 @@ const CreatePromotion: React.FC = () => {
     const [selectedCategories, setSelectedCategories] = useState(null)
 
 
-    const { t, i18n: { language } } = useTranslation()
+    const { t } = useTranslation()
     const validationSchema = Yup.object({
         title: Yup.string().required(t("title") + t("entered")),
         example: Yup.string(),

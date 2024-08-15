@@ -64,7 +64,7 @@ interface RoleOrCategory {
 
 const Profile = () => {
     const { t, i18n: { language } } = useTranslation()
-    const setterLanguage = typeof language === "string" && (language === "uz" || language === "ru")
+    // const setterLanguage = typeof language === "string" && (language === "uz" || language === "ru")
     const params = useParams();
     const [user, setUser] = useState<UserProps | null>(null);
     const [roles, setRoles] = useState<RoleOrCategory[] | null>(null);
